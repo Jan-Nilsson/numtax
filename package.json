@@ -1,0 +1,8 @@
+{
+  "name": "numtax",
+  "version": "1.0.0",
+  "description": "Number taxonomy — classify integers across number-theoretic sets",
+  "scripts": {
+    "start": "npx serve ."
+  }
+}
