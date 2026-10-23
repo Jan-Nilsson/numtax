@@ -1,0 +1,10 @@
+.polar-canvas-wrap.square-spiral-wrap {
+  aspect-ratio: 1 / 1;
+  min-height: 180px;
+}
+
+.square-spiral-wrap .polar-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

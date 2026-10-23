@@ -1,0 +1,16 @@
+.polar-canvas-wrap.number-line-wrap {
+  aspect-ratio: 3.2 / 1;
+  min-height: 110px;
+}
+
+.number-line-wrap .polar-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 600px) {
+  .polar-canvas-wrap.number-line-wrap {
+    aspect-ratio: 2.5 / 1;
+    min-height: 105px;
+  }
+}

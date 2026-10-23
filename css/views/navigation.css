@@ -1,0 +1,248 @@
+[hidden] {
+  display: none !important;
+}
+
+/* Header: stack title and controls vertically */
+#polar-view-header:not([hidden]) {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+#polar-view-header[hidden] {
+  display: none !important;
+}
+
+#polar-view-header > .polar-view-label,
+#polar-view-header > .polar-view-title {
+  display: block;
+  width: 100%;
+}
+
+/* Explore home */
+.explore-home {
+  display: grid;
+  gap: 2.5rem;
+  margin-top: 1rem;
+}
+
+.explore-section {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.explore-section-title {
+  margin: 0;
+  font-family: var(--mono, 'IBM Plex Mono', monospace);
+  font-size: .8rem;
+  font-weight: 400;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+/* Category and view cards */
+.polar-category-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.explore-home .polar-category-card {
+  width: 100%;
+  text-align: left;
+  font-family: var(--sans, 'IBM Plex Sans', sans-serif);
+}
+
+.explore-home .polar-category-title,
+.polar-category-grid .polar-category-title {
+  font-family: var(--mono, 'IBM Plex Mono', monospace);
+}
+
+.explore-card-description {
+  display: block;
+  margin-top: .65rem;
+  font-family: var(--sans, 'IBM Plex Sans', sans-serif);
+  font-size: .8rem;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+
+/* Toolbar */
+#polar-view-header > .explore-toolbar {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  gap: .6rem;
+  width: 100%;
+  min-width: 0;
+  margin-top: .9rem;
+}
+
+/* Desktop view buttons: wrap instead of clipping */
+.explore-view-switch {
+  display: flex;
+  flex: 1 1 550px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .35rem;
+  min-width: 0;
+  overflow: visible;
+}
+
+.explore-toolbar .explore-mode-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 110px;
+  min-width: 110px;
+  max-width: 110px;
+  height: 34px;
+  margin: 0;
+  padding: .45rem .5rem;
+  flex: 0 0 110px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--fg);
+  font-family: var(--mono, 'IBM Plex Mono', monospace);
+  font-size: .72rem;
+  font-weight: 400;
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    color .15s,
+    border-color .15s,
+    background-color .15s;
+}
+
+.explore-toolbar .explore-mode-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* The active button identifies the current view */
+.explore-toolbar .explore-mode-btn.active,
+.explore-toolbar .explore-mode-btn[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* Focus states */
+.explore-toolbar .explore-mode-btn:focus-visible,
+.explore-toolbar .polar-back-btn:focus-visible,
+.explore-mobile-view-select:focus-visible,
+.explore-home .polar-category-card:focus-visible,
+.polar-category-grid .polar-category-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Mobile selector: hidden on desktop */
+.explore-mobile-view-wrap {
+  display: none;
+}
+
+/* Back button */
+.explore-toolbar .polar-back-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: 34px;
+  padding: .45rem .8rem;
+  margin-left: auto;
+  flex: 0 0 auto;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--fg);
+  font-family: var(--mono, 'IBM Plex Mono', monospace);
+  font-size: .72rem;
+  font-weight: 400;
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    color .15s,
+    border-color .15s,
+    background-color .15s;
+}
+
+.explore-toolbar .polar-back-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .explore-home {
+    gap: 1.8rem;
+  }
+
+  .polar-category-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: .85rem;
+  }
+
+  #polar-view-header > .explore-toolbar {
+    align-items: center;
+    gap: .5rem;
+  }
+
+  .explore-view-switch {
+    display: none;
+  }
+
+  .explore-mobile-view-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+
+  .explore-mobile-view-label {
+    flex: 0 0 auto;
+    font-family: var(--mono, 'IBM Plex Mono', monospace);
+    font-size: .72rem;
+    color: var(--fg-muted);
+  }
+
+  .explore-mobile-view-select {
+    appearance: none;
+    box-sizing: border-box;
+    width: 150px;
+    min-width: 0;
+    height: 34px;
+    padding: 0 .6rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--mono, 'IBM Plex Mono', monospace);
+    font-size: .72rem;
+    cursor: pointer;
+  }
+
+  #polar-view-header .polar-back-btn {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 350px) {
+  .explore-mobile-view-select {
+    width: 120px;
+  }
+
+  .explore-toolbar .polar-back-btn {
+    padding-inline: .55rem;
+  }
+}

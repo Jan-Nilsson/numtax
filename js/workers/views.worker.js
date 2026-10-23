@@ -1,6 +1,6 @@
 import { PROPERTY_REGISTRY } from '../registry.js';
 
-const FN_MAP = Object.fromEntries(
+const FN_MAP = new Map(
   PROPERTY_REGISTRY.map(property => [
     property.key,
     property.predicate
@@ -19,7 +19,7 @@ function collectMembers(predicate, scanLimit) {
 
 self.addEventListener('message', ({ data }) => {
   const { key, scanLimit, requestId } = data;
-  const predicate = FN_MAP[key];
+  const predicate = FN_MAP.get(key);
 
   if (!predicate) {
     self.postMessage({
@@ -31,11 +31,20 @@ self.addEventListener('message', ({ data }) => {
     return;
   }
 
-  const members = collectMembers(predicate, scanLimit);
+  try {
+    const members = collectMembers(predicate, scanLimit);
 
-  self.postMessage({
-    requestId,
-    key,
-    members
-  });
+    self.postMessage({
+      requestId,
+      key,
+      members
+    });
+  } catch (error) {
+    self.postMessage({
+      requestId,
+      key,
+      members: [],
+      error: error.message
+    });
+  }
 });

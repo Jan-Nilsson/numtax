@@ -1,0 +1,10 @@
+.polar-canvas-wrap.density-chart-wrap {
+  aspect-ratio: 2.2 / 1;
+  min-height: 155px;
+}
+
+.density-chart-wrap .polar-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

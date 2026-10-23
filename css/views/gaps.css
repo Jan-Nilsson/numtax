@@ -1,0 +1,10 @@
+.polar-canvas-wrap.gap-chart-wrap {
+  aspect-ratio: 2.2 / 1;
+  min-height: 155px;
+}
+
+.gap-chart-wrap .polar-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

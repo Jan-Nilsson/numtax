@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>numtax — Explore</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap">
+  <link rel="stylesheet" href="css/numtax.css">
+  <link rel="stylesheet" href="css/views/polar.css">
+  <link rel="stylesheet" href="css/views/number-line.css">
+  <link rel="stylesheet" href="css/views/square-spiral.css">
+  <link rel="stylesheet" href="css/views/gaps.css">
+  <link rel="stylesheet" href="css/views/density.css">
+  <link rel="stylesheet" href="css/views/modular.css">
+  <link rel="stylesheet" href="css/views/navigation.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">num<strong>tax</strong></a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Classify</a>
+      <a href="views.html" class="nav-link nav-link--active">Explore</a>
+    </div>
+    <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">
+      <svg class="sun-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path>
+      </svg>
+    </button>
+  </nav>
+
+  <main class="main polar-main">
+    <header class="hero">
+      <p class="hero-sub">Explore mathematical sets through different visual representations.</p>
+    </header>
+    <section id="explore-home" class="explore-home"></section>
+    <div class="polar-view-header" id="polar-view-header" hidden></div>
+    <div class="polar-grid" id="polar-grid" hidden></div>
+  </main>
+
+  <script type="module" src="js/interface/theme.js"></script>
+  <script type="module" src="js/interface/views.js"></script>
+</body>
+</html>
