@@ -1,89 +1,99 @@
-function getDigits(n) {
-  return String(Math.abs(n)).split('').map(Number);
+function validBase(base) {
+  return Number.isInteger(base) && base >= 2 && base <= 36;
 }
 
-function sumOfPoweredDigits(n, exponent) {
-  return getDigits(n).reduce((sum, digit) => sum + digit ** exponent, 0);
+function validNonnegativeInteger(n) {
+  return Number.isSafeInteger(n) && n >= 0;
 }
 
-export function isNarcissistic(n) {
-  if (n < 0) return false;
-  const digitList = getDigits(n);
-  const exponent  = digitList.length;
-  return sumOfPoweredDigits(n, exponent) === n;
+function digitValues(n, base = 10) {
+  if (!validNonnegativeInteger(n) || !validBase(base)) return null;
+  return BigInt(n).toString(base).split('').map(char => parseInt(char, base));
 }
 
-export function isHappy(n) {
-  if (n < 1) return false;
+function parseBaseInteger(text, base) {
+  let value = 0n;
+  for (const char of text.toLowerCase()) {
+    const digit = parseInt(char, base);
+    if (!Number.isInteger(digit) || digit < 0 || digit >= base) return null;
+    value = value * BigInt(base) + BigInt(digit);
+  }
+  return value;
+}
+
+function sumPoweredDigits(n, exponent, base) {
+  const digits = digitValues(n, base);
+  if (!digits) return NaN;
+  let sum = 0;
+  for (const digit of digits) {
+    sum += digit ** exponent;
+    if (!Number.isFinite(sum)) return Infinity;
+  }
+  return sum;
+}
+
+export function isNarcissistic(n, base = 10) {
+  if (!validNonnegativeInteger(n) || !validBase(base)) return false;
+  const digits = digitValues(n, base);
+  return sumPoweredDigits(n, digits.length, base) === n;
+}
+
+export function isHappy(n, base = 10) {
+  if (!Number.isSafeInteger(n) || n < 1 || !validBase(base)) return false;
   const seen = new Set();
   let current = n;
+
   while (current !== 1) {
     if (seen.has(current)) return false;
     seen.add(current);
-    current = sumOfPoweredDigits(current, 2);
+    current = sumPoweredDigits(current, 2, base);
+    if (!Number.isSafeInteger(current) || current < 0) return false;
   }
   return true;
 }
 
-export function isPerfect(n) {
-  if (n < 2) return false;
-  let sum = 1;
-  for (let divisor = 2; divisor * divisor <= n; divisor++) {
-    if (n % divisor === 0) {
-      sum += divisor;
-      if (divisor !== n / divisor) sum += n / divisor;
-    }
-  }
-  return sum === n;
-}
+export function isKaprekar(n, base = 10) {
+  if (!Number.isSafeInteger(n) || n < 1 || !validBase(base)) return false;
+  if (n === 1) return true;
 
-export function isAbundant(n) {
-  if (n < 1) return false;
-  let sum = 1;
-  for (let divisor = 2; divisor * divisor <= n; divisor++) {
-    if (n % divisor === 0) {
-      sum += divisor;
-      if (divisor !== n / divisor) sum += n / divisor;
-    }
-  }
-  return sum > n;
-}
+  const squared = (BigInt(n) * BigInt(n)).toString(base);
+  const target = BigInt(n);
 
-export function isDeficient(n) {
-  if (n < 1) return false;
-  let sum = 1;
-  for (let divisor = 2; divisor * divisor <= n; divisor++) {
-    if (n % divisor === 0) {
-      sum += divisor;
-      if (divisor !== n / divisor) sum += n / divisor;
-    }
-  }
-  return sum < n;
-}
-
-export function isKaprekar(n) {
-  if (n < 1) return false;
-  if (n * n > Number.MAX_SAFE_INTEGER) return false;
-  const squared = String(n * n);
   for (let split = 1; split < squared.length; split++) {
-    const left  = Number(squared.slice(0, split));
-    const right = Number(squared.slice(split));
-    if (right > 0 && left + right === n) return true;
+    const left = parseBaseInteger(squared.slice(0, split), base);
+    const right = parseBaseInteger(squared.slice(split), base);
+    if (left === null || right === null || right === 0n) continue;
+    if (left + right === target) return true;
   }
   return false;
 }
 
-export function isKaprekarConstant(n) {
-  if (String(n).length < 3) return false;
-  return n === 495 || n === 6174;
+export function isKaprekarConstant(n, base = 10) {
+  if (!Number.isSafeInteger(n) || n < 1 || !validBase(base)) return false;
+  const representation = BigInt(n).toString(base);
+  const digits = representation.split('');
+  const descending = [...digits].sort((a, b) => parseInt(b, base) - parseInt(a, base));
+  const ascending = [...digits].sort((a, b) => parseInt(a, base) - parseInt(b, base));
+  const high = parseBaseInteger(descending.join(''), base);
+  const low = parseBaseInteger(ascending.join(''), base);
+  return high !== null && low !== null && high - low === BigInt(n);
 }
 
-export function isAutomorphic(n) {
-  if (n < 0) return false;
-  if (n * n > Number.MAX_SAFE_INTEGER) return false;
-  const squared  = String(n * n);
-  const asString = String(n);
-  return squared.endsWith(asString);
+export function isAutomorphic(n, base = 10) {
+  if (!validNonnegativeInteger(n) || !validBase(base)) return false;
+  const value = BigInt(n);
+  return (value * value).toString(base).endsWith(value.toString(base));
 }
 
-export default { description: 'Digit-based number property functions' };
+export function isRepunit(n, base = 10) {
+  if (!Number.isSafeInteger(n) || n < 1 || !validBase(base)) return false;
+  return BigInt(n).toString(base).split('').every(char => char === '1');
+}
+
+export function isRepdigit(n, base = 10) {
+  if (!validNonnegativeInteger(n) || !validBase(base)) return false;
+  const digits = BigInt(n).toString(base);
+  return digits.split('').every(char => char === digits[0]);
+}
+
+export default { description: 'Digit and numeral-representation properties' };

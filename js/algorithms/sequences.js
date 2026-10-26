@@ -1,680 +1,320 @@
-function isqrt(n) {
-  if (n < 0) return -1;
-
-  let root = Math.round(Math.sqrt(n));
-
-  while (root * root > n) root--;
-  while ((root + 1) * (root + 1) <= n) root++;
-
-  return root;
+function isCandidateInteger(n, minimum = 0) {
+  return Number.isSafeInteger(n) && n >= minimum;
 }
 
-function isPerfectSquare(n) {
-  if (n < 0) return false;
-
-  const root = isqrt(n);
-  return root * root === n;
-}
-
-/**
- * Generic membership checker for increasing sequences.
- *
- * Starts from the supplied initial terms and repeatedly applies
- * the recurrence until the value is found or exceeded.
- */
 function isInIncreasingSequence(n, initial, nextTerm) {
-  if (n < 0) return false;
-
-  for (const term of initial) {
-    if (term === n) return true;
-  }
+  if (!isCandidateInteger(n, 0)) return false;
+  if (initial.includes(n)) return true;
 
   let terms = [...initial];
-
-  while (true) {
+  for (let iteration = 0; iteration < 10000; iteration++) {
     const next = nextTerm(terms);
-
-    if (
-      !Number.isFinite(next) ||
-      next > Number.MAX_SAFE_INTEGER ||
-      next < terms[terms.length - 1]
-    ) {
-      return false;
-    }
-
+    if (!Number.isSafeInteger(next) || next < 0) return false;
     if (next === n) return true;
     if (next > n) return false;
-
-    terms.shift();
-    terms.push(next);
+    terms = [...terms.slice(1), next];
   }
+  return false;
 }
 
+function isInBigIntSequence(n, initial, nextTerm) {
+  if (!isCandidateInteger(n, 0)) return false;
+  const target = BigInt(n);
+  if (initial.includes(target)) return true;
 
-/* ============================================================
-   CLASSICAL SEQUENCES
-   ============================================================ */
+  let terms = [...initial];
+  for (let iteration = 0; iteration < 10000; iteration++) {
+    const next = nextTerm(terms);
+    if (next === target) return true;
+    if (next > target) return false;
+    terms = [...terms.slice(1), next];
+  }
+  return false;
+}
 
 export function isFibonacci(n) {
-  if (n < 0) return false;
-  if (5 * n * n > Number.MAX_SAFE_INTEGER) return false;
-
-  return (
-    isPerfectSquare(5 * n * n + 4) ||
-    isPerfectSquare(5 * n * n - 4)
-  );
+  return isInIncreasingSequence(n, [0, 1], ([a, b]) => a + b);
 }
-
 
 export function isLucas(n) {
-  return isInIncreasingSequence(
-    n,
-    [2, 1],
-    ([a, b]) => a + b
-  );
+  return isInIncreasingSequence(n, [2, 1], ([a, b]) => a + b);
 }
-
 
 export function isPell(n) {
-  return isInIncreasingSequence(
-    n,
-    [0, 1],
-    ([a, b]) => a + 2 * b
-  );
+  return isInIncreasingSequence(n, [0, 1], ([a, b]) => a + 2 * b);
 }
-
 
 export function isPellLucas(n) {
-  return isInIncreasingSequence(
-    n,
-    [2, 2],
-    ([a, b]) => a + 2 * b
-  );
+  return isInIncreasingSequence(n, [2, 2], ([a, b]) => a + 2 * b);
 }
-
 
 export function isJacobsthal(n) {
-  return isInIncreasingSequence(
-    n,
-    [0, 1],
-    ([a, b]) => b + 2 * a
-  );
+  return isInIncreasingSequence(n, [0, 1], ([a, b]) => b + 2 * a);
 }
-
 
 export function isJacobsthalLucas(n) {
-  return isInIncreasingSequence(
-    n,
-    [2, 1],
-    ([a, b]) => b + 2 * a
-  );
+  return isInIncreasingSequence(n, [2, 1], ([a, b]) => b + 2 * a);
 }
-
 
 export function isTribonacci(n) {
-  return isInIncreasingSequence(
-    n,
-    [0, 0, 1],
-    ([a, b, c]) => a + b + c
-  );
+  return isInIncreasingSequence(n, [0, 0, 1], ([a, b, c]) => a + b + c);
 }
-
 
 export function isTetranacci(n) {
-  return isInIncreasingSequence(
-    n,
-    [0, 0, 0, 1],
-    ([a, b, c, d]) => a + b + c + d
-  );
+  return isInIncreasingSequence(n, [0, 0, 0, 1], ([a, b, c, d]) => a + b + c + d);
 }
-
 
 export function isPentavonacci(n) {
-  return isInIncreasingSequence(
-    n,
-    [0, 0, 0, 0, 1],
-    ([a, b, c, d, e]) => a + b + c + d + e
-  );
+  return isInIncreasingSequence(n, [0, 0, 0, 0, 1], ([a, b, c, d, e]) => a + b + c + d + e);
 }
-
-
-/* ============================================================
-   COMBINATORIAL SEQUENCES
-   ============================================================ */
 
 export function isCatalan(n) {
-  if (n < 1) return false;
+  if (!isCandidateInteger(n, 1)) return false;
+  const target = BigInt(n);
+  let value = 1n; // C_0 = 1; the set of values also contains C_1 = 1.
+  if (target === 1n) return true;
 
-  let catalan = 1;
-
-  for (let k = 1; catalan <= n; k++) {
-    if (catalan === n) return true;
-
-    const next =
-      catalan * 2 * (2 * k - 1) / (k + 1);
-
-    if (
-      !Number.isFinite(next) ||
-      next <= catalan ||
-      next > Number.MAX_SAFE_INTEGER
-    ) {
-      break;
-    }
-
-    catalan = next;
+  for (let k = 0n; k < 10000n; k++) {
+    const numerator = value * 2n * (2n * k + 1n);
+    value = numerator / (k + 2n);
+    if (value === target) return true;
+    if (value > target) return false;
   }
-
-  return catalan === n;
+  return false;
 }
-
 
 export function isBell(n) {
-  if (n < 1) return false;
+  if (!isCandidateInteger(n, 1)) return false;
+  const target = BigInt(n);
+  let row = [1n];
+  if (target === 1n) return true;
 
-  let row = [1];
-
-  if (n === 1) return true;
-
-  while (true) {
+  for (let iteration = 0; iteration < 1000; iteration++) {
     const nextRow = [row[row.length - 1]];
-
-    for (let k = 0; k < row.length; k++) {
-      nextRow.push(nextRow[k] + row[k]);
+    for (let i = 0; i < row.length; i++) {
+      nextRow.push(nextRow[i] + row[i]);
     }
-
-    const bellNumber = nextRow[nextRow.length - 1];
-
-    if (
-      bellNumber > Number.MAX_SAFE_INTEGER ||
-      !Number.isFinite(bellNumber)
-    ) {
-      return false;
-    }
-
-    if (bellNumber === n) return true;
-    if (bellNumber > n) return false;
-
+    const bell = nextRow[0];
+    if (bell === target) return true;
+    if (bell > target) return false;
     row = nextRow;
   }
+  return false;
 }
-
 
 export function isMotzkin(n) {
-  return isInIncreasingSequence(
-    n,
-    [1, 1],
-    ([a, b]) => {
-      const k = 2;
+  if (!isCandidateInteger(n, 1)) return false;
+  const target = BigInt(n);
+  let previous2 = 1n; // M_0
+  let previous = 1n; // M_1
+  if (target === 1n) return true;
 
-      // M_n = ((2n+1)M_(n-1) + 3(n-1)M_(n-2))/(n+2)
-      return ((2 * k + 1) * b + 3 * (k - 1) * a) / (k + 2);
-    }
-  );
-}
-
-
-/*
- * Central Delannoy numbers:
- * 1, 3, 13, 63, 321, ...
- */
-export function isDelannoy(n) {
-  if (n < 1) return false;
-
-  let d = 1;
-  let k = 0;
-
-  while (d <= n) {
-    if (d === n) return true;
-
-    k++;
-
-    const next =
-      d * (2 * k - 1) * (2 * k) / (k * k);
-
-    if (
-      !Number.isFinite(next) ||
-      next <= d ||
-      next > Number.MAX_SAFE_INTEGER
-    ) {
-      return false;
-    }
-
-    d = next;
+  for (let index = 2n; index < 10000n; index++) {
+    const current = ((2n * index + 1n) * previous + 3n * (index - 1n) * previous2) / (index + 2n);
+    if (current === target) return true;
+    if (current > target) return false;
+    previous2 = previous;
+    previous = current;
   }
-
   return false;
 }
 
-
-/*
- * Large Schröder numbers:
- * 1, 2, 6, 22, 90, 394, ...
- */
 export function isSchroeder(n) {
-  if (n < 1) return false;
+  if (!isCandidateInteger(n, 1)) return false;
+  const target = BigInt(n);
+  let previous2 = 1n; // S_0
+  let previous = 2n; // S_1
+  if (target === 1n || target === 2n) return true;
 
-  let a = 1;
-  let b = 2;
-
-  if (n === a || n === b) return true;
-
-  while (b <= n) {
-    const k = 1;
-
-    const next =
-      ((6 * k + 3) * b - (k - 1) * a) / (k + 2);
-
-    if (
-      !Number.isFinite(next) ||
-      next <= b ||
-      next > Number.MAX_SAFE_INTEGER
-    ) {
-      return false;
-    }
-
-    a = b;
-    b = next;
-
-    if (b === n) return true;
+  for (let index = 2n; index < 10000n; index++) {
+    const current = ((6n * index - 3n) * previous - (index - 2n) * previous2) / (index + 1n);
+    if (current === target) return true;
+    if (current > target) return false;
+    previous2 = previous;
+    previous = current;
   }
-
   return false;
 }
 
+export function isDelannoy(n) {
+  if (!isCandidateInteger(n, 1)) return false;
+  const target = BigInt(n);
+  let previous2 = 1n; // D_0
+  let previous = 3n; // D_1
+  if (target === 1n || target === 3n) return true;
 
-/*
- * Ordered Bell / Fubini numbers:
- * 1, 1, 3, 13, 71, 461, ...
- */
+  for (let index = 2n; index < 10000n; index++) {
+    const current = (3n * (2n * index - 1n) * previous - (index - 1n) * previous2) / index;
+    if (current === target) return true;
+    if (current > target) return false;
+    previous2 = previous;
+    previous = current;
+  }
+  return false;
+}
+
+function binomialBigInt(n, k) {
+  if (k < 0n || k > n) return 0n;
+  if (k > n - k) k = n - k;
+  let result = 1n;
+  for (let i = 1n; i <= k; i++) result = result * (n - k + i) / i;
+  return result;
+}
+
 export function isFubini(n) {
-  if (n < 1) return false;
+  if (!isCandidateInteger(n, 1)) return false;
+  const target = BigInt(n);
+  let values = [1n]; // F_0
+  if (target === 1n) return true;
 
-  let row = [1];
-
-  for (let size = 1; size < 100; size++) {
-    const next = row.reduce(
-      (sum, value, index) =>
-        sum + value * (index + 1),
-      0
-    );
-
-    if (
-      !Number.isFinite(next) ||
-      next > Number.MAX_SAFE_INTEGER
-    ) {
-      return false;
+  for (let size = 1n; size < 10000n; size++) {
+    let current = 0n;
+    for (let k = 1n; k <= size; k++) {
+      current += binomialBigInt(size, k) * values[Number(size - k)];
     }
-
-    if (next === n) return true;
-    if (next > n) return false;
-
-    row = [next];
+    if (current === target) return true;
+    if (current > target) return false;
+    values.push(current);
   }
-
   return false;
 }
-
-
-/* ============================================================
-   SPECIAL RECURSIVE SEQUENCES
-   ============================================================ */
 
 export function isPadovan(n) {
-  return isInIncreasingSequence(
-    n,
-    [1, 1, 1],
-    ([a, b, c]) => a + b
-  );
+  return isInIncreasingSequence(n, [1, 1, 1], ([a, b, c]) => a + b);
 }
-
 
 export function isPerrin(n) {
-  if (n === 0 || n === 2 || n === 3) return true;
-  if (n < 0) return false;
+  if (!isCandidateInteger(n, 0)) return false;
+  const target = BigInt(n);
+  let terms = [3n, 0n, 2n];
+  if (terms.includes(target)) return true;
 
-  return isInIncreasingSequence(
-    n,
-    [3, 0, 2],
-    ([a, b, c]) => a + b
-  );
+  for (let i = 0; i < 10000; i++) {
+    const next = terms[0] + terms[1];
+    if (next === target) return true;
+    if (next > target) return false;
+    terms = [terms[1], terms[2], next];
+  }
+  return false;
 }
-
-
-export function isNarayana(n) {
-  if (n < 1) return false;
-
-  /*
-   * First Narayana numbers:
-   * 1, 1, 1, 2, 3, 4, 6, 9, 14, ...
-   *
-   * Generated using the recurrence for N(n,k)
-   * and taking the central diagonal.
-   */
-  const known = [
-    1, 1, 1, 2, 3, 4, 6, 9, 14, 22,
-    35, 56, 90, 145, 235, 381, 620,
-    1009, 1640, 2665
-  ];
-
-  return known.includes(n);
-}
-
-
-/* ============================================================
-   CLASSICAL COMBINATORIAL / COUNTING SEQUENCES
-   ============================================================ */
 
 export function isFactorial(n) {
-  if (n === 1) return true;
-  if (n < 1) return false;
-
-  let factorial = 1;
-
-  for (let k = 2; k <= 18; k++) {
-    factorial *= k;
-
-    if (factorial === n) return true;
-    if (factorial > n) return false;
+  if (!isCandidateInteger(n, 1)) return false;
+  const target = BigInt(n);
+  let value = 1n;
+  if (target === 1n) return true; // 0! and 1!
+  for (let k = 2n; k < 10000n; k++) {
+    value *= k;
+    if (value === target) return true;
+    if (value > target) return false;
   }
-
   return false;
 }
-
 
 export function isDoubleFactorial(n) {
-  if (n === 1 || n === 2) return true;
-  if (n < 1) return false;
+  if (!isCandidateInteger(n, 1)) return false;
+  const target = BigInt(n);
+  if (target === 1n || target === 2n || target === 3n) return true;
 
-  let value = 1;
-
-  for (let k = 2; k <= 31; k++) {
-    value *= k;
-
-    if (value === n) return true;
-    if (value > n) return false;
-
-    k++;
+  let odd = 1n;
+  for (let k = 3n; odd <= target; k += 2n) {
+    odd *= k;
+    if (odd === target) return true;
+    if (odd > target) break;
   }
 
+  let even = 2n;
+  for (let k = 4n; even <= target; k += 2n) {
+    even *= k;
+    if (even === target) return true;
+    if (even > target) break;
+  }
   return false;
 }
-
 
 export function isDerangement(n) {
-  if (n === 0 || n === 1) return n === 0;
+  if (!isCandidateInteger(n, 0)) return false;
+  const target = BigInt(n);
+  let previous2 = 1n; // !0 = 1
+  let previous = 0n; // !1 = 0
+  if (target === previous2 || target === previous) return true;
 
-  let a = 1;
-  let b = 0;
-
-  for (let k = 2; k <= 22; k++) {
-    const next = (k - 1) * (a + b);
-
-    if (!Number.isSafeInteger(next)) return false;
-    if (next === n) return true;
-    if (next > n) return false;
-
-    a = b;
-    b = next;
+  for (let index = 2n; index < 10000n; index++) {
+    const current = (index - 1n) * (previous + previous2);
+    if (current === target) return true;
+    if (current > target) return false;
+    previous2 = previous;
+    previous = current;
   }
-
   return false;
 }
-
-
-/* ============================================================
-   FIGURATE / COMBINATORIAL-LIKE SEQUENCES
-   ============================================================ */
-
-export function isTriangularSequence(n) {
-  if (n < 0) return false;
-
-  return isPerfectSquare(8 * n + 1);
-}
-
-
-export function isSquarePyramidal(n) {
-  if (n < 1) return false;
-
-  // 1² + 2² + ... + k² = k(k+1)(2k+1)/6
-  let sum = 0;
-
-  for (let k = 1; k <= 2080; k++) {
-    sum += k * k;
-
-    if (sum === n) return true;
-    if (sum > n || sum > Number.MAX_SAFE_INTEGER) return false;
-  }
-
-  return false;
-}
-
-
-export function isTetrahedral(n) {
-  if (n < 1) return false;
-
-  // Tetrahedral numbers:
-  // k(k+1)(k+2)/6
-  let k = 1;
-
-  while (true) {
-    const value = k * (k + 1) * (k + 2) / 6;
-
-    if (!Number.isSafeInteger(value)) return false;
-    if (value === n) return true;
-    if (value > n) return false;
-
-    k++;
-  }
-}
-
-
-/* ============================================================
-   POWER / EXPONENTIAL SEQUENCES
-   ============================================================ */
 
 export function isPowerOfTwoSequence(n) {
-  if (n < 1) return false;
-
-  let value = 1;
-
-  while (value <= n) {
-    if (value === n) return true;
-
-    if (value > Number.MAX_SAFE_INTEGER / 2) break;
-
-    value *= 2;
-  }
-
-  return false;
+  if (!isCandidateInteger(n, 1)) return false;
+  const value = BigInt(n);
+  return (value & (value - 1n)) === 0n;
 }
 
+function isPowerOfBase(n, base) {
+  if (!isCandidateInteger(n, 1)) return false;
+  let value = BigInt(n);
+  const b = BigInt(base);
+  while (value > 1n && value % b === 0n) value /= b;
+  return value === 1n;
+}
 
 export function isPowerOfThree(n) {
-  if (n < 1) return false;
-
-  let value = 1;
-
-  while (value <= n) {
-    if (value === n) return true;
-
-    if (value > Number.MAX_SAFE_INTEGER / 3) break;
-
-    value *= 3;
-  }
-
-  return false;
+  return isPowerOfBase(n, 3);
 }
-
 
 export function isPowerOfFive(n) {
-  if (n < 1) return false;
-
-  let value = 1;
-
-  while (value <= n) {
-    if (value === n) return true;
-
-    if (value > Number.MAX_SAFE_INTEGER / 5) break;
-
-    value *= 5;
-  }
-
-  return false;
+  return isPowerOfBase(n, 5);
 }
-
 
 export function isPowerOfTen(n) {
-  if (n < 1) return false;
-
-  let value = 1;
-
-  while (value <= n) {
-    if (value === n) return true;
-
-    if (value > Number.MAX_SAFE_INTEGER / 10) break;
-
-    value *= 10;
-  }
-
-  return false;
+  return isPowerOfBase(n, 10);
 }
-
-
-/* ============================================================
-   REPUNIT / REPETITION SEQUENCES
-   ============================================================ */
-
-export function isRepunit(n) {
-  if (n < 1) return false;
-
-  let value = 0;
-
-  for (let length = 1; length <= 15; length++) {
-    value = value * 10 + 1;
-
-    if (value === n) return true;
-    if (value > n) return false;
-  }
-
-  return false;
-}
-
-
-export function isRepdigit(n) {
-  if (n < 0) return false;
-
-  const digits = String(n);
-
-  if (digits.length === 1) return true;
-
-  return digits.split('').every(
-    digit => digit === digits[0]
-  );
-}
-
-
-/* ============================================================
-   POLYNOMIAL SEQUENCES
-   ============================================================ */
-
-export function isCenteredSquare(n) {
-  if (n < 1) return false;
-
-  // 1 + 4 * T_(k-1)
-  // = 2k² - 2k + 1
-  let k = 1;
-
-  while (true) {
-    const value = 2 * k * k - 2 * k + 1;
-
-    if (!Number.isSafeInteger(value)) return false;
-    if (value === n) return true;
-    if (value > n) return false;
-
-    k++;
-  }
-}
-
-
-export function isCenteredTriangular(n) {
-  if (n < 1) return false;
-
-  // 3k(k-1)/2 + 1
-  let k = 1;
-
-  while (true) {
-    const value = 3 * k * (k - 1) / 2 + 1;
-
-    if (!Number.isSafeInteger(value)) return false;
-    if (value === n) return true;
-    if (value > n) return false;
-
-    k++;
-  }
-}
-
-
-/* ============================================================
-   MISCELLANEOUS FAMOUS SEQUENCES
-   ============================================================ */
 
 export function isMersenneNumber(n) {
-  if (n < 1) return false;
-
-  let value = 1;
-
-  for (let k = 1; k <= 52; k++) {
-    value *= 2;
-
-    const mersenne = value - 1;
-
-    if (mersenne === n) return true;
-    if (mersenne > n) return false;
-  }
-
-  return false;
+  if (!isCandidateInteger(n, 1)) return false;
+  const value = BigInt(n) + 1n;
+  return (value & (value - 1n)) === 0n;
 }
-
 
 export function isFermatNumber(n) {
-  if (n < 3) return false;
-
-  let power = 1;
-
-  for (let k = 0; k <= 4; k++) {
-    const value = power + 2;
-
-    if (value === n) return true;
-    if (value > n) return false;
-
+  if (!isCandidateInteger(n, 3)) return false;
+  const target = BigInt(n);
+  let power = 2n;
+  for (let k = 0; k < 32; k++) {
+    if (power + 1n === target) return true;
+    if (power + 1n > target) return false;
     power *= power;
+    if (power > target) return false;
   }
-
   return false;
 }
 
-
-export function isPowerfulSequence(n) {
-  if (n < 1) return false;
-
-  for (let p = 2; p * p <= n; p++) {
-    if (n % p !== 0) continue;
-
-    let x = n;
-    let exponent = 0;
-
-    while (x % p === 0) {
-      x /= p;
-      exponent++;
-    }
-
-    if (exponent === 1) return false;
+const leonardoValues = [1n, 1n];
+export function isLeonardoNumber(n) {
+  if (!isCandidateInteger(n, 1)) return false;
+  const target = BigInt(n);
+  while (leonardoValues[leonardoValues.length - 1] < target) {
+    const size = leonardoValues.length;
+    leonardoValues.push(leonardoValues[size - 1] + leonardoValues[size - 2] + 1n);
   }
-
-  return true;
+  return leonardoValues.includes(target);
 }
 
+const centralBinomialValues = [1n];
+export function isCentralBinomialCoefficient(n) {
+  if (!isCandidateInteger(n, 1)) return false;
+  const target = BigInt(n);
+  while (centralBinomialValues[centralBinomialValues.length - 1] < target) {
+    const k = BigInt(centralBinomialValues.length - 1);
+    const previous = centralBinomialValues[centralBinomialValues.length - 1];
+    centralBinomialValues.push(previous * 2n * (2n * k + 1n) / (k + 1n));
+  }
+  return centralBinomialValues.includes(target);
+}
 
-export default {
-  description: 'Integer sequence membership functions'
-};
+export default { description: 'Integer sequence membership functions' };
