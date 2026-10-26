@@ -1,0 +1,192 @@
+/* Numtax — Proofs page
+   Reuses the design tokens and typography defined in css/numtax.css. */
+
+.proofs-page {
+  width: min(100%, 760px);
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 5rem;
+  color: var(--fg);
+}
+
+/* Page heading */
+.proofs-header {
+  max-width: 680px;
+  margin-bottom: 2rem;
+}
+
+.proofs-eyebrow {
+  margin: 0 0 0.75rem;
+  color: var(--accent);
+  font-family: var(--mono, 'IBM Plex Mono', monospace);
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.proofs-header h1 {
+  margin: 0;
+  font-family: var(--mono, 'IBM Plex Mono', monospace);
+  font-size: clamp(1.8rem, 5vw, 2.35rem);
+  font-weight: 400;
+  letter-spacing: -0.055em;
+  line-height: 1.15;
+}
+
+.proofs-intro {
+  max-width: 66ch;
+  margin: 0.9rem 0 0;
+  color: var(--fg-muted);
+  font-size: 0.88rem;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+/* Search and category filter */
+.proofs-tools {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(160px, 205px);
+  gap: 0.55rem 1rem;
+  align-items: end;
+  margin: 2.25rem 0 1rem;
+}
+
+.proofs-search-label {
+  display: block;
+  color: var(--fg-muted);
+  font-family: var(--mono, 'IBM Plex Mono', monospace);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.proofs-search-label[for="proof-search"] { grid-column: 1; grid-row: 1; }
+.proofs-search-label[for="proof-category"] { grid-column: 2; grid-row: 1; }
+
+.proofs-search,
+.proofs-select {
+  appearance: none;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 38px;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 6px);
+  background: var(--bg2);
+  color: var(--fg);
+  font-family: var(--sans, 'IBM Plex Sans', sans-serif);
+  font-size: 0.82rem;
+  line-height: 1.4;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.proofs-search::placeholder { color: var(--fg-muted); }
+.proofs-select { font-family: var(--mono, 'IBM Plex Mono', monospace); font-size: 0.72rem; }
+.proofs-search:focus,
+.proofs-select:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+/* Count and placeholder notice */
+.proofs-results-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.45rem 1rem;
+  margin: 1.45rem 0 0.8rem;
+}
+
+.proofs-count,
+.proofs-placeholder-note {
+  margin: 0;
+  color: var(--fg-muted);
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+
+.proofs-count {
+  font-family: var(--mono, 'IBM Plex Mono', monospace);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.proofs-placeholder-note { font-style: italic; }
+
+/* Proof cards use the same restrained borders and surfaces as Numtax tables. */
+.proofs-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.proofs-card {
+  min-width: 0;
+  padding: 1.1rem 1.15rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 6px);
+  background: var(--bg2);
+}
+
+.proofs-card-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.65rem 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.proofs-card h2 {
+  margin: 0;
+  font-family: var(--mono, 'IBM Plex Mono', monospace);
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.5;
+}
+
+.proofs-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.45rem;
+  align-items: center;
+  margin-top: 0.4rem;
+  color: var(--fg-muted);
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.proofs-badge {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  min-height: 1.45rem;
+  padding: 0.12rem 0.45rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--fg-muted);
+  font-family: var(--mono, 'IBM Plex Mono', monospace);
+  font-size: 0.58rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+/* Markdown content */
+.proofs-markdown {
+  color: var(--fg);
+  font-size: 0.84rem;
+  font-weight: 300;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+
+.proofs-markdown > :first-child { margin-top: 0; }
