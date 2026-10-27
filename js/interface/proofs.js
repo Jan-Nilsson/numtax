@@ -6,23 +6,106 @@ const count = document.getElementById("proofs-count");
 const searchInput = document.getElementById("proof-search");
 const categorySelect = document.getElementById("proof-category");
 
+const KATEX_BASE =
+  "https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/";
+
+const MATH_DELIMITERS = [
+  { left: "$$", right: "$$", display: true },
+  { left: "\\[", right: "\\]", display: true },
+  { left: "\\(", right: "\\)", display: false },
+  { left: "$", right: "$", display: false },
+];
+
 function escapeHTML(value) {
   return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+
+    script.src = src;
+    script.async = true;
+    script.onload = resolve;
+    script.onerror = () => {
+      reject(new Error(`Could not load script: ${src}`));
+    };
+
+    document.head.appendChild(script);
+  });
+}
+
+async function ensureMathSupport() {
+  try {
+    if (!window.katex) {
+      await loadScript(`${KATEX_BASE}katex.min.js`);
+    }
+
+    if (typeof window.renderMathInElement !== "function") {
+      await loadScript(
+        `${KATEX_BASE}contrib/auto-render.min.js`
+      );
+    }
+
+    return typeof window.renderMathInElement === "function";
+  } catch (error) {
+    console.warn(
+      "Numtax Proofs: KaTeX could not be loaded.",
+      error
+    );
+
+    return false;
+  }
+}
+
+function isMathSegment(segment) {
+  return (
+    (segment.startsWith("$$") && segment.endsWith("$$")) ||
+    (segment.startsWith("\\[") && segment.endsWith("\\]")) ||
+    (segment.startsWith("\\(") && segment.endsWith("\\)")) ||
+    (
+      segment.startsWith("$") &&
+      segment.endsWith("$") &&
+      !segment.startsWith("$$")
+    )
+  );
 }
 
 function renderInline(markdown) {
-  let html = escapeHTML(markdown);
+  // Protect LaTeX from Markdown emphasis transformations.
+  const parts = String(markdown).split(
+    /(\$\$[\s\S]*?\$\$|\\\[[\s\S]*?\\\]|\\\([\s\S]*?\\\)|\$[^$\n]+\$)/g
+  );
 
-  html = html.replace(/`([^`]+)`/g, "<code>$1</code>");
-  html = html.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
-  html = html.replace(/\*(.+?)\*/g, "<em>$1</em>");
+  return parts.map((part) => {
+    if (isMathSegment(part)) {
+      return escapeHTML(part);
+    }
 
-  return html;
+    let html = escapeHTML(part);
+
+    html = html.replace(
+      /`([^`]+)`/g,
+      "<code>$1</code>"
+    );
+
+    html = html.replace(
+      /\*\*(.+?)\*\*/g,
+      "<strong>$1</strong>"
+    );
+
+    html = html.replace(
+      /\*(.+?)\*/g,
+      "<em>$1</em>"
+    );
+
+    return html;
+  }).join("");
 }
 
 function renderMarkdown(markdown) {
@@ -36,11 +119,16 @@ function renderMarkdown(markdown) {
   let listType = null;
   let listItems = [];
   let quoteLines = [];
+
   let codeLines = [];
   let inCodeBlock = false;
 
+  let mathLines = [];
+  let inMathBlock = false;
+  let mathClosingDelimiter = null;
+
   function flushParagraph() {
-    if (paragraph.length === 0) return;
+    if (!paragraph.length) return;
 
     output.push(
       `<p>${paragraph.map(renderInline).join(" ")}</p>`
@@ -63,7 +151,7 @@ function renderMarkdown(markdown) {
   }
 
   function flushQuote() {
-    if (quoteLines.length === 0) return;
+    if (!quoteLines.length) return;
 
     output.push(
       `<blockquote>${quoteLines
@@ -75,8 +163,6 @@ function renderMarkdown(markdown) {
   }
 
   function flushCode() {
-    if (codeLines.length === 0) return;
-
     output.push(
       `<pre><code>${escapeHTML(codeLines.join("\n"))}</code></pre>`
     );
@@ -84,9 +170,22 @@ function renderMarkdown(markdown) {
     codeLines = [];
   }
 
+  function flushMath() {
+    output.push(
+      `<div class="proofs-math-block">${escapeHTML(
+        mathLines.join("\n")
+      )}</div>`
+    );
+
+    mathLines = [];
+    inMathBlock = false;
+    mathClosingDelimiter = null;
+  }
+
   for (const line of lines) {
     const trimmed = line.trim();
 
+    // Fenced code blocks: do not interpret their contents as LaTeX.
     if (/^```/.test(trimmed)) {
       if (inCodeBlock) {
         flushCode();
@@ -103,6 +202,58 @@ function renderMarkdown(markdown) {
 
     if (inCodeBlock) {
       codeLines.push(line);
+      continue;
+    }
+
+    // Collect a multi-line display-math expression.
+    if (inMathBlock) {
+      mathLines.push(line);
+
+      if (
+        trimmed === mathClosingDelimiter ||
+        trimmed.endsWith(mathClosingDelimiter)
+      ) {
+        flushMath();
+      }
+
+      continue;
+    }
+
+    // Display math on one line, e.g. \[a^2+b^2=c^2\].
+    const singleLineMath =
+      (
+        trimmed.startsWith("\\[") &&
+        trimmed.endsWith("\\]")
+      ) ||
+      (
+        trimmed.startsWith("$$") &&
+        trimmed.endsWith("$$") &&
+        trimmed.length > 4
+      );
+
+    if (singleLineMath) {
+      flushParagraph();
+      flushList();
+      flushQuote();
+
+      output.push(
+        `<div class="proofs-math-block">${escapeHTML(trimmed)}</div>`
+      );
+
+      continue;
+    }
+
+    // Start a display-math block.
+    if (trimmed === "\\[" || trimmed === "$$") {
+      flushParagraph();
+      flushList();
+      flushQuote();
+
+      inMathBlock = true;
+      mathClosingDelimiter =
+        trimmed === "\\[" ? "\\]" : "$$";
+
+      mathLines = [trimmed];
       continue;
     }
 
@@ -168,14 +319,36 @@ function renderMarkdown(markdown) {
   flushList();
   flushQuote();
 
-  if (inCodeBlock) {
-    flushCode();
-  }
+  if (inCodeBlock) flushCode();
+  if (inMathBlock) flushMath();
 
   return output.join("\n");
 }
 
-function createProofCard(proof, markdown) {
+function renderMath(root) {
+  if (typeof window.renderMathInElement !== "function") {
+    return;
+  }
+
+  window.renderMathInElement(root, {
+    delimiters: MATH_DELIMITERS,
+
+    ignoredTags: [
+      "script",
+      "noscript",
+      "style",
+      "textarea",
+      "pre",
+      "code",
+      "option",
+    ],
+
+    throwOnError: false,
+    strict: "warn",
+  });
+}
+
+function makeCard(proof, markdown) {
   const article = document.createElement("article");
   article.className = "proofs-card";
   article.dataset.category = proof.category;
@@ -191,7 +364,7 @@ function createProofCard(proof, markdown) {
   const meta = document.createElement("div");
   meta.className = "proofs-card-meta";
   meta.textContent =
-    `${proof.categoryLabel} · ${proof.property} · ${proof.result}`;
+    `${proof.categoryLabel} · Property: ${proof.property} · ${proof.result}`;
 
   headingWrap.append(heading, meta);
 
@@ -206,12 +379,18 @@ function createProofCard(proof, markdown) {
   content.className = "proofs-markdown";
   content.innerHTML = renderMarkdown(markdown);
 
+  // Crucial: render the LaTeX after the Markdown HTML exists.
+  renderMath(content);
+
   article.append(header, content);
 
   return article;
 }
 
-function showMessage(message, className = "proofs-empty") {
+function showMessage(
+  message,
+  className = "proofs-empty"
+) {
   if (!list) return;
 
   list.replaceChildren();
@@ -226,22 +405,20 @@ function showMessage(message, className = "proofs-empty") {
 async function loadProofDocument(proof) {
   try {
     const url = new URL(proof.path, document.baseURI);
-    const response = await fetch(url);
+    const response = await fetch(url.href);
 
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
     }
 
-    const markdown = await response.text();
-
     return {
       ...proof,
-      markdown,
+      markdown: await response.text(),
       loadError: false,
     };
   } catch (error) {
     console.error(
-      `Numtax: failed to load proof document "${proof.path}".`,
+      `Could not load proof document: ${proof.path}`,
       error
     );
 
@@ -254,25 +431,26 @@ async function loadProofDocument(proof) {
 }
 
 function renderProofList(proofs) {
-  const query = searchInput.value.trim().toLocaleLowerCase();
-  const selectedCategory = categorySelect.value;
+  const query = searchInput.value
+    .trim()
+    .toLocaleLowerCase();
+
+  const category = categorySelect.value;
 
   const filtered = proofs.filter((proof) => {
     const matchesCategory =
-      selectedCategory === "all" ||
-      proof.category === selectedCategory;
+      category === "all" ||
+      proof.category === category;
 
-    const searchableText = [
+    const searchable = [
       proof.title,
       proof.categoryLabel,
       proof.property,
       proof.result,
       proof.markdown,
-    ]
-      .join(" ")
-      .toLocaleLowerCase();
+    ].join(" ").toLocaleLowerCase();
 
-    return matchesCategory && searchableText.includes(query);
+    return matchesCategory && searchable.includes(query);
   });
 
   count.textContent =
@@ -280,7 +458,7 @@ function renderProofList(proofs) {
 
   list.replaceChildren();
 
-  if (filtered.length === 0) {
+  if (!filtered.length) {
     showMessage("No proof entries match your filters.");
     return;
   }
@@ -293,56 +471,61 @@ function renderProofList(proofs) {
       const heading = document.createElement("h2");
       heading.textContent = proof.title;
 
-      const message = document.createElement("p");
-      message.className = "proofs-error";
-      message.textContent =
-        `Could not load "${proof.path}". Check that the file exists ` +
-        "and that Numtax is being served over HTTP or HTTPS.";
+      const error = document.createElement("p");
+      error.className = "proofs-error";
+      error.textContent =
+        `Could not load "${proof.path}". Check that the Markdown ` +
+        "file exists at the project root and has been published to Netlify.";
 
-      article.append(heading, message);
+      article.append(heading, error);
       list.appendChild(article);
 
       continue;
     }
 
-    list.appendChild(createProofCard(proof, proof.markdown));
+    list.appendChild(makeCard(proof, proof.markdown));
   }
 }
 
 async function initializeProofs() {
   if (!list || !count || !searchInput || !categorySelect) {
     console.error(
-      "Numtax: the Proofs page is missing one or more required HTML elements."
+      "Numtax Proofs: required HTML elements are missing."
     );
+
     return;
   }
 
   count.textContent = "Loading proofs…";
 
-  try {
-    const proofs = await Promise.all(
-      PROOFS.map(loadProofDocument)
-    );
+  // Load KaTeX before rendering the Markdown documents.
+  await ensureMathSupport();
 
-    searchInput.addEventListener("input", () => {
-      renderProofList(proofs);
-    });
+  const proofs = await Promise.all(
+    PROOFS.map(loadProofDocument)
+  );
 
-    categorySelect.addEventListener("change", () => {
-      renderProofList(proofs);
-    });
-
+  searchInput.addEventListener("input", () => {
     renderProofList(proofs);
-  } catch (error) {
-    console.error("Numtax: could not initialize the Proofs page.", error);
+  });
 
-    count.textContent = "Error";
+  categorySelect.addEventListener("change", () => {
+    renderProofList(proofs);
+  });
 
-    showMessage(
-      "An unexpected error occurred while loading the proof catalogue.",
-      "proofs-error"
-    );
-  }
+  renderProofList(proofs);
 }
 
-initializeProofs();
+initializeProofs().catch((error) => {
+  console.error(
+    "Could not initialize the Proofs page.",
+    error
+  );
+
+  if (count) count.textContent = "Could not load proofs";
+
+  showMessage(
+    "An unexpected error occurred while loading the proof catalogue.",
+    "proofs-error"
+  );
+});

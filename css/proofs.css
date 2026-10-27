@@ -244,7 +244,6 @@
 
 .proofs-markdown pre code { padding: 0; border: 0; background: transparent; }
 
-/* Empty, loading and error states */
 .proofs-error,
 .proofs-empty,
 .proofs-loading {
@@ -267,6 +266,34 @@
 .proofs-select:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
+}
+
+.proofs-math-block {
+  max-width: 100%;
+  margin: 1rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.25rem 0;
+  color: var(--fg);
+  text-align: center;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.proofs-math-block .katex-display {
+  margin: 0.25rem 0;
+  text-align: center;
+}
+
+.proofs-markdown .katex {
+  color: inherit;
+  font-size: 1em;
+}
+
+.proofs-markdown .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.25rem 0;
 }
 
 @media (max-width: 600px) {

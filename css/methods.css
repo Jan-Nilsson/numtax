@@ -1,0 +1,227 @@
+.content-page {
+  width: min(100% - 2rem, 1100px);
+  margin: 0 auto;
+  padding: 3.5rem 0 5rem;
+  color: inherit;
+}
+
+.page-header {
+  max-width: 780px;
+  margin-bottom: 3rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  opacity: 0.65;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+}
+
+.page-intro {
+  max-width: 680px;
+  margin: 1.25rem 0 1.5rem;
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  line-height: 1.7;
+  opacity: 0.8;
+}
+
+.page-status,
+.method-status {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  border: 1px solid var(--border-color, rgba(127, 127, 127, 0.3));
+  border-radius: 999px;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  opacity: 0.8;
+}
+
+.methods-introduction,
+.methods-standard {
+  max-width: 780px;
+  margin: 0 0 3.5rem;
+}
+
+.methods-introduction h2,
+.methods-standard h2,
+.section-heading h2 {
+  margin: 0 0 0.9rem;
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  letter-spacing: -0.025em;
+}
+
+.methods-introduction p,
+.methods-standard li {
+  line-height: 1.8;
+  opacity: 0.82;
+}
+
+.methods-introduction p {
+  margin: 0 0 1rem;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-heading p {
+  margin: 0;
+  line-height: 1.6;
+  opacity: 0.7;
+}
+
+.methods-count {
+  flex-shrink: 0;
+  font-size: 0.85rem;
+}
+
+.methods-search {
+  display: grid;
+  gap: 0.5rem;
+  max-width: 440px;
+  margin-bottom: 1.5rem;
+}
+
+.methods-search label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.methods-search input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--border-color, rgba(127, 127, 127, 0.35));
+  border-radius: 0.65rem;
+  padding: 0.8rem 0.9rem;
+  background: var(--input-bg, transparent);
+  color: inherit;
+  font: inherit;
+}
+
+.methods-search input:focus-visible {
+  outline: 2px solid var(--accent-color, currentColor);
+  outline-offset: 2px;
+}
+
+.methods-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.method-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  border: 1px solid var(--border-color, rgba(127, 127, 127, 0.25));
+  border-radius: 0.9rem;
+  padding: 1.25rem;
+  background: var(--card-bg, rgba(127, 127, 127, 0.035));
+}
+
+.method-card[hidden] {
+  display: none;
+}
+
+.method-number {
+  margin-bottom: 1.5rem;
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.55;
+}
+
+.method-card h3 {
+  margin: 0 0 0.65rem;
+  font-size: 1.15rem;
+  line-height: 1.35;
+}
+
+.method-card p {
+  margin: 0 0 1.25rem;
+  line-height: 1.7;
+  font-size: 0.94rem;
+  opacity: 0.78;
+}
+
+.method-status {
+  margin-top: auto;
+  font-size: 0.72rem;
+}
+
+.methods-empty {
+  margin: 1.5rem 0;
+  opacity: 0.75;
+}
+
+.methods-standard ul {
+  padding-left: 1.25rem;
+}
+
+.methods-standard li {
+  margin-bottom: 0.35rem;
+}
+
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  border-top: 1px solid var(--border-color, rgba(127, 127, 127, 0.2));
+  padding: 1.5rem max(1rem, calc((100% - 1100px) / 2));
+  font-size: 0.88rem;
+  opacity: 0.8;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.site-footer a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+}
+
+@media (max-width: 850px) {
+  .methods-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .content-page {
+    width: min(100% - 1.25rem, 1100px);
+    padding-top: 2.5rem;
+  }
+
+  .methods-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .site-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+}

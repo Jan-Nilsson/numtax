@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Methods | Numtax</title>
+  <meta
+    name="description"
+    content="Explore the algorithms and computational methods used by Numtax to classify and investigate numbers."
+  >
+
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="css/numtax.css">
+  <link rel="stylesheet" href="css/methods.css">
+
+  <script src="js/interface/navbar.js" defer></script>
+  <script src="js/interface/theme.js" defer></script>
+  <script src="js/interface/methods.js" defer></script>
+</head>
+
+<body>
+  <div id="navbar-container"></div>
+
+  <main class="content-page methods-page">
+    <header class="page-header">
+      <p class="eyebrow">NUMTAX / DOCUMENTATION</p>
+
+      <h1>Methods</h1>
+
+      <p class="page-intro">
+        A guide to the algorithms behind Numtax: what they do, how they work,
+        and how their mathematical properties are verified.
+      </p>
+
+      <div class="page-status" role="status">
+        Documentation in progress
+      </div>
+    </header>
+
+    <section class="methods-introduction">
+      <h2>About this documentation</h2>
+
+      <p>
+        Numtax uses computational methods to investigate the properties of
+        integers. This section will document the implementations used by the
+        project, including their purpose, assumptions, limitations, and
+        mathematical justification.
+      </p>
+
+      <p>
+        Complexity estimates and implementation-specific claims will be added
+        after the corresponding source code has been reviewed. They will not
+        be inferred from an algorithm's name alone.
+      </p>
+    </section>
+
+    <section class="methods-catalog" aria-labelledby="methods-heading">
+      <div class="section-heading">
+        <div>
+          <h2 id="methods-heading">Method catalogue</h2>
+          <p>Browse the topics planned for documentation.</p>
+        </div>
+
+        <p
+          id="methods-count"
+          class="methods-count"
+          aria-live="polite"
+        >
+          6 topics
+        </p>
+      </div>
+
+      <div class="methods-search">
+        <label for="method-search">Search methods</label>
+        <input
+          id="method-search"
+          type="search"
+          placeholder="Try “primes” or “digits”…"
+          autocomplete="off"
+        >
+      </div>
+
+      <div class="methods-grid" id="methods-grid">
+        <article
+          class="method-card"
+          id="primality-testing"
+          data-method-card
+          data-search="primality testing prime numbers primes"
+        >
+          <span class="method-number">01</span>
+          <h3>Primality testing</h3>
+          <p>
+            Methods for determining whether an integer is prime, including
+            the conditions checked by the current implementation.
+          </p>
+          <span class="method-status">Documentation pending</span>
+        </article>
+
+        <article
+          class="method-card"
+          id="prime-factorization"
+          data-method-card
+          data-search="prime factorization factors divisors"
+        >
+          <span class="method-number">02</span>
+          <h3>Prime factorization</h3>
+          <p>
+            How integers are decomposed into prime factors, including the
+            treatment of small, negative, and exceptional inputs.
+          </p>
+          <span class="method-status">Documentation pending</span>
+        </article>
+
+        <article
+          class="method-card"
+          id="divisor-generation"
+          data-method-card
+          data-search="divisors divisor generation factors"
+        >
+          <span class="method-number">03</span>
+          <h3>Divisor generation</h3>
+          <p>
+            How divisors are generated and how the resulting values are
+            checked and presented.
+          </p>
+          <span class="method-status">Documentation pending</span>
+        </article>
+
+        <article
+          class="method-card"
+          id="digit-algorithms"
+          data-method-card
+          data-search="digits decimal palindrome digit algorithms"
+        >
+          <span class="method-number">04</span>
+          <h3>Digit algorithms</h3>
+          <p>
+            Operations based on a number's digits, including the exact
+            representation and base assumptions used by the code.
+          </p>
+          <span class="method-status">Documentation pending</span>
+        </article>
+
+        <article
+          class="method-card"
+          id="figurate-numbers"
+          data-method-card
+          data-search="figurate numbers triangular square polygonal"
+        >
+          <span class="method-number">05</span>
+          <h3>Figurate numbers</h3>
+          <p>
+            Methods for identifying or generating figurate numbers, with
+            their mathematical definitions and implementation details.
+          </p>
+          <span class="method-status">Documentation pending</span>
+        </article>
+
+        <article
+          class="method-card"
+          id="sequences"
+          data-method-card
+          data-search="sequences recurrence fibonacci number sequences"
+        >
+          <span class="method-number">06</span>
+          <h3>Number sequences</h3>
+          <p>
+            The rules used to generate or recognize sequences, including
+            recurrence relations where applicable.
+          </p>
+          <span class="method-status">Documentation pending</span>
+        </article>
+      </div>
+
+      <p id="methods-empty" class="methods-empty" hidden>
+        No methods match your search.
+      </p>
+    </section>
+
+    <section class="methods-standard">
+      <h2>What each method page will contain</h2>
+
+      <ul>
+        <li>The mathematical problem and definitions.</li>
+        <li>A description of the actual implementation.</li>
+        <li>Time and space complexity, with stated assumptions.</li>
+        <li>Correctness arguments and relevant edge cases.</li>
+        <li>Examples, tests, limitations, and references.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      Numtax · Mathematical exploration and number classification
+    </p>
+    <a href="about.html">About Numtax</a>
+  </footer>
+</body>
+</html>

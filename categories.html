@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A future formal map of mathematical structures in Numtax.">
+  <title>Categories — Numtax</title>
+  <link rel="stylesheet" href="css/numtax.css">
+  <link rel="stylesheet" href="css/categories.css">
+</head>
+<body>
+  <div id="navbar-container"></div>
+
+  <main class="main categories-main">
+    <header class="categories-hero">
+      <p class="categories-eyebrow">NUMTAX / MATHEMATICAL STRUCTURE</p>
+      <h1>Categories</h1>
+      <p class="categories-intro">
+        A future formal map of the objects, morphisms and compositions connecting
+        Numtax's mathematical structures.
+      </p>
+    </header>
+
+    <section class="categories-notice" aria-label="Development status">
+      <span class="categories-status-dot" aria-hidden="true"></span>
+      <div>
+        <h2>Work in progress</h2>
+        <p>This section is a placeholder. No categorical relationships are asserted yet.</p>
+      </div>
+    </section>
+
+    <section class="categories-section" aria-labelledby="map-title">
+      <div class="categories-section-heading">
+        <div>
+          <p class="categories-eyebrow">OVERVIEW</p>
+          <h2 id="map-title">Formal map</h2>
+        </div>
+        <span class="categories-count" id="categories-count">0 components</span>
+      </div>
+
+      <div class="categories-grid" id="categories-list" aria-live="polite">
+        <p class="categories-empty">Loading placeholder…</p>
+      </div>
+    </section>
+
+    <p class="categories-footnote">
+      The visual map will be added after the objects, morphisms, identity laws and
+      composition rules have been defined precisely.
+    </p>
+  </main>
+
+  <script type="module" src="js/interface/navbar.js"></script>
+  <script type="module" src="js/interface/theme.js"></script>
+  <script type="module" src="js/interface/categories.js"></script>
+</body>
+</html>

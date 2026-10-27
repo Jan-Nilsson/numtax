@@ -1,8 +1,11 @@
-
 const NAV_ITEMS = [
   { href: "index.html", label: "Classify" },
   { href: "views.html", label: "Explore" },
+  { href: "sets.html", label: "Sets" },
   { href: "proofs.html", label: "Proofs" },
+  { href: "categories.html", label: "Categories" },
+  { href: "methods.html", label: "Methods" },
+  { href: "about.html", label: "About" },
 ];
 
 function renderNavbar() {
@@ -61,7 +64,7 @@ function renderNavbar() {
       aria-hidden="true"
     >
       <circle cx="12" cy="12" r="4"></circle>
-      <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path>
+      <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l-1.42-1.42m11.3-11.3 1.42-1.42"></path>
     </svg>
   `;
 
