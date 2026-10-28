@@ -1,0 +1,205 @@
+
+/* =========================================
+   NUMTAX — Classify landing page
+   ========================================= */
+
+.classify-body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.classify-body .classify-page {
+  flex: 1 0 auto;
+  width: min(calc(100% - 3rem), 920px);
+  max-width: none;
+  margin: 0 auto;
+  padding: clamp(5rem, 12vh, 8rem) 0 4rem;
+  box-sizing: border-box;
+}
+
+/* Intro */
+
+.classify-page .classify-hero {
+  max-width: 700px;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+}
+
+.classify-page .classify-eyebrow {
+  margin: 0 0 1rem;
+  color: var(--fg-muted);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  line-height: 1.7;
+  text-transform: uppercase;
+}
+
+.classify-page .classify-hero h1 {
+  margin: 0;
+  color: var(--fg);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: clamp(2.1rem, 5.5vw, 3.5rem);
+  font-weight: 400;
+  letter-spacing: -0.075em;
+  line-height: 1.12;
+}
+
+.classify-page .classify-hero .hero-sub {
+  max-width: 560px;
+  margin: 1.1rem auto 0;
+  color: var(--fg-muted);
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+/* Input form */
+
+.classify-page .search-form {
+  width: min(100%, 640px);
+  margin: 2.4rem auto 0;
+}
+
+.classify-page .classify-label {
+  display: block;
+  margin: 0 0 0.65rem;
+  color: var(--fg-muted);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.classify-page .input-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: stretch;
+  gap: 0.65rem;
+}
+
+.classify-page .number-input {
+  width: 100%;
+  min-width: 0;
+  min-height: 54px;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 6px);
+  outline: none;
+  background: var(--bg2);
+  color: var(--fg);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 160ms ease;
+}
+
+.classify-page .number-input::placeholder {
+  color: var(--fg-muted);
+  opacity: 0.8;
+}
+
+.classify-page .number-input:focus {
+  border-color: var(--accent);
+}
+
+.classify-page .number-input:focus-visible,
+.classify-page .submit-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.classify-page .submit-btn {
+  min-height: 54px;
+  padding: 0 1.25rem;
+  border: 1px solid var(--fg);
+  border-radius: var(--radius, 6px);
+  background: var(--fg);
+  color: var(--bg);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.76rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.classify-page .submit-btn:hover {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.classify-page .classify-help {
+  margin: 0.7rem 0 0;
+  color: var(--fg-muted);
+  font-size: 0.75rem;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+/* Results */
+
+.classify-page #results:empty {
+  display: none;
+}
+
+.classify-page #results:not(:empty) {
+  width: 100%;
+  margin: 3.5rem auto 0;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+/* Responsive */
+
+@media (max-width: 600px) {
+  .classify-body .classify-page {
+    width: calc(100% - 2rem);
+    padding-top: 4.5rem;
+    padding-bottom: 3rem;
+  }
+
+  .classify-page .classify-hero {
+    margin-bottom: 2rem;
+  }
+
+  .classify-page .classify-hero h1 {
+    font-size: clamp(2rem, 9vw, 2.7rem);
+  }
+
+  .classify-page .classify-hero .hero-sub {
+    font-size: 0.88rem;
+  }
+
+  .classify-page .search-form {
+    margin-top: 2rem;
+  }
+
+  .classify-page .input-wrap {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .classify-page .submit-btn {
+    width: 100%;
+  }
+
+  .classify-page #results:not(:empty) {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .classify-page .number-input,
+  .classify-page .submit-btn {
+    transition: none;
+  }
+}

@@ -2,10 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Explore — numtax</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Explore — Numtax</title>
+  <meta
+    name="description"
+    content="Explore mathematical sets through interactive visual representations in Numtax."
+  >
+
+  <link rel="icon" href="favicon.ico">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap"
+  >
+
   <link rel="stylesheet" href="css/numtax.css">
   <link rel="stylesheet" href="css/views/polar.css">
   <link rel="stylesheet" href="css/views/number-line.css">
@@ -15,24 +28,28 @@
   <link rel="stylesheet" href="css/views/modular.css">
   <link rel="stylesheet" href="css/views/navigation.css">
   <link rel="stylesheet" href="css/footer.css">
+
+  <script src="js/interface/navbar.js" defer></script>
+  <script src="js/interface/theme.js" defer></script>
   <script src="js/interface/footer.js" defer></script>
+  <script type="module" src="js/interface/views.js"></script>
 </head>
+
 <body>
   <div id="navbar-container"></div>
 
   <main class="main polar-main">
     <header class="hero">
-      <p class="hero-sub">Explore mathematical sets through different visual representations.</p>
+      <p class="hero-sub">
+        Explore mathematical sets through different visual representations.
+      </p>
     </header>
+
     <section id="explore-home" class="explore-home"></section>
     <div class="polar-view-header" id="polar-view-header" hidden></div>
     <div class="polar-grid" id="polar-grid" hidden></div>
   </main>
 
   <div id="footer-container"></div>
-
-  <script type="module" src="js/interface/navbar.js"></script>
-  <script type="module" src="js/interface/views.js"></script>
-  <script type="module" src="js/interface/theme.js"></script>
 </body>
 </html>

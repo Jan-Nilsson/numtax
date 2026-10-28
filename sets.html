@@ -1,16 +1,34 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Explore mathematical sets catalogued by Numtax, their definitions and related properties.">
+
+  <meta
+    name="description"
+    content="Explore mathematical sets catalogued by Numtax, their definitions and related properties."
+  >
   <title>Sets — Numtax</title>
+
   <link rel="icon" href="favicon.ico">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap"
+  >
+
   <link rel="stylesheet" href="css/numtax.css">
   <link rel="stylesheet" href="css/sets.css">
   <link rel="stylesheet" href="css/footer.css">
+
+  <script src="js/interface/navbar.js" defer></script>
+  <script src="js/interface/theme.js" defer></script>
   <script src="js/interface/footer.js" defer></script>
+  <script type="module" src="js/interface/sets.js"></script>
 </head>
+
 <body>
   <div id="navbar-container"></div>
 
@@ -18,6 +36,7 @@
     <header class="sets-header">
       <p class="sets-eyebrow">NUMTAX / MATHEMATICAL LIBRARY</p>
       <h1>Sets</h1>
+
       <p class="sets-intro">
         Browse sets of integers by definition and category. This initial catalogue is a starting point;
         the entries can later be linked to the canonical properties in Numtax and expanded with history,
@@ -36,6 +55,7 @@
           autocomplete="off"
         >
       </div>
+
       <div class="sets-field">
         <label class="sets-label" for="set-category">Category</label>
         <select id="set-category" class="sets-select">
@@ -52,18 +72,21 @@
 
     <div class="sets-results-line">
       <p id="sets-count" class="sets-count" aria-live="polite">Loading sets…</p>
-      <p class="sets-note">Initial catalogue · definitions may depend on the number base or domain stated.</p>
+      <p class="sets-note">
+        Initial catalogue · definitions may depend on the number base or domain stated.
+      </p>
     </div>
 
-    <section id="sets-list" class="sets-list" aria-label="Set catalogue" aria-live="polite">
+    <section
+      id="sets-list"
+      class="sets-list"
+      aria-label="Set catalogue"
+      aria-live="polite"
+    >
       <p class="sets-state">Loading set catalogue…</p>
     </section>
   </main>
 
   <div id="footer-container"></div>
-
-  <script type="module" src="js/interface/navbar.js"></script>
-  <script type="module" src="js/interface/theme.js"></script>
-  <script type="module" src="js/interface/sets.js"></script>
 </body>
 </html>

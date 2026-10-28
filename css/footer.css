@@ -1,0 +1,129 @@
+
+/* =========================================
+   NUMTAX — Shared footer
+   ========================================= */
+
+#footer-container {
+  width: 100%;
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+#footer-container .site-footer {
+  display: block;
+  width: min(calc(100% - 3rem), 1100px);
+  margin: 4rem auto 0;
+  padding: 1.15rem 0 1.5rem;
+  border-top: 1px solid var(--border);
+  box-sizing: border-box;
+
+  color: var(--fg-muted);
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 0.76rem;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+#footer-container .site-footer *,
+#footer-container .site-footer *::before,
+#footer-container .site-footer *::after {
+  box-sizing: border-box;
+}
+
+#footer-container .site-footer__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem 2rem;
+  width: 100%;
+}
+
+#footer-container .site-footer__brand {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-self: start;
+  gap: 0.4rem 0.65rem;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+#footer-container .site-footer__name {
+  color: var(--fg);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+#footer-container .site-footer__description {
+  color: var(--fg-muted);
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 0.76rem;
+  font-weight: 300;
+}
+
+#footer-container .site-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  justify-self: end;
+  gap: 0.65rem 1.25rem;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 0 0 auto;
+  padding: 0;
+  text-align: right;
+}
+
+#footer-container .site-footer__links a,
+#footer-container .site-footer__links a:visited {
+  color: var(--fg);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.7rem;
+  font-weight: 400;
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+#footer-container .site-footer__links a:hover,
+#footer-container .site-footer__links a:focus-visible {
+  color: var(--accent);
+}
+
+#footer-container .site-footer__links a:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* =========================================
+   Responsive
+   ========================================= */
+
+@media (max-width: 600px) {
+  #footer-container .site-footer {
+    width: calc(100% - 2rem);
+    margin-top: 3rem;
+    padding-top: 1rem;
+    padding-bottom: 1.25rem;
+  }
+
+  #footer-container .site-footer__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.9rem;
+  }
+
+  #footer-container .site-footer__links {
+    justify-self: end;
+    margin-left: auto;
+    gap: 0.6rem 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #footer-container .site-footer__links a {
+    transition: none;
+  }
+}

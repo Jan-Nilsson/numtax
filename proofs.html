@@ -1,18 +1,35 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Mathematical proofs and cardinality results for Numtax properties.">
+
+  <meta
+    name="description"
+    content="Mathematical proofs and cardinality results for Numtax properties."
+  >
   <title>Proofs — Numtax</title>
+
   <link rel="icon" href="favicon.ico">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap"
+  >
+
   <link rel="stylesheet" href="css/numtax.css">
   <link rel="stylesheet" href="css/proofs.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css">
   <link rel="stylesheet" href="css/footer.css">
+
+  <script src="js/interface/navbar.js" defer></script>
+  <script src="js/interface/theme.js" defer></script>
   <script src="js/interface/footer.js" defer></script>
->
+  <script type="module" src="js/interface/proofs.js"></script>
 </head>
+
 <body>
   <div id="navbar-container"></div>
 
@@ -20,6 +37,7 @@
     <header class="proofs-header">
       <p class="proofs-eyebrow">NUMTAX / MATHEMATICAL LIBRARY</p>
       <h1>Proofs</h1>
+
       <p class="proofs-intro">
         Browse mathematical statements, cardinality results, and their proofs.
         The entries currently shown are clearly marked placeholders for layout testing.
@@ -50,18 +68,21 @@
 
     <div class="proofs-results-line">
       <p id="proofs-count" class="proofs-count" aria-live="polite">Loading proofs…</p>
-      <p class="proofs-placeholder-note">Placeholder content — not mathematical claims about the listed categories.</p>
+      <p class="proofs-placeholder-note">
+        Placeholder content — not mathematical claims about the listed categories.
+      </p>
     </div>
 
-    <section id="proofs-list" class="proofs-list" aria-label="Proof entries" aria-live="polite">
+    <section
+      id="proofs-list"
+      class="proofs-list"
+      aria-label="Proof entries"
+      aria-live="polite"
+    >
       <p class="proofs-loading">Loading proof documents…</p>
     </section>
   </main>
 
   <div id="footer-container"></div>
-
-  <script type="module" src="js/interface/navbar.js"></script>
-  <script type="module" src="js/interface/theme.js"></script>
-  <script type="module" src="js/interface/proofs.js"></script>
 </body>
 </html>

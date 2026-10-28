@@ -8,20 +8,39 @@
     return;
   }
 
+  const links = [
+    { href: "about.html", label: "About" },
+    { href: "methods.html", label: "Methods" },
+    { href: "contribute.html", label: "Contribute" }
+  ];
+
+  const currentPage =
+    window.location.pathname.split("/").filter(Boolean).pop()?.toLowerCase()
+    || "index.html";
+
+  const visibleLinks = links.filter(
+    (link) => link.href.toLowerCase() !== currentPage
+  );
+
+  const linksHTML = visibleLinks
+    .map(
+      (link) =>
+        `<a href="${link.href}">${link.label}</a>`
+    )
+    .join("\n");
+
   container.innerHTML = `
     <footer class="site-footer">
       <div class="site-footer__inner">
-        <p class="site-footer__brand">
+        <div class="site-footer__brand">
           <span class="site-footer__name">NUMTAX</span>
           <span class="site-footer__description">
             Exploring integers through structure and computation.
           </span>
-        </p>
+        </div>
 
         <nav class="site-footer__links" aria-label="Footer navigation">
-          <a href="about.html">About</a>
-          <a href="methods.html">Methods</a>
-          <a href="contribute.html">Contribute</a>
+          ${linksHTML}
         </nav>
       </div>
     </footer>
