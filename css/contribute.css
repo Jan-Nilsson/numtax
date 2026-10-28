@@ -1,0 +1,418 @@
+[hidden] {
+  display: none !important;
+}
+
+.contribute-page {
+  width: min(calc(100% - 3rem), 760px);
+  margin: 0 auto;
+  padding: 3.5rem 0 2rem;
+  color: var(--fg);
+  font-family: "IBM Plex Sans", sans-serif;
+  box-sizing: border-box;
+}
+
+.contribute-page *,
+.contribute-page *::before,
+.contribute-page *::after {
+  box-sizing: border-box;
+}
+
+/* =========================================
+   Header
+   ========================================= */
+
+.contribute-page .page-header {
+  margin: 0 0 3.5rem;
+  padding: 0 0 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.contribute-page .eyebrow {
+  margin: 0 0 1rem;
+  color: var(--fg-muted);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.09em;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+.contribute-page .page-header h1 {
+  margin: 0;
+  color: var(--fg);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: clamp(2rem, 5vw, 2.65rem);
+  font-weight: 400;
+  letter-spacing: -0.065em;
+  line-height: 1.15;
+}
+
+.contribute-page .page-intro {
+  max-width: 650px;
+  margin: 1.15rem 0 0;
+  color: var(--fg-muted);
+  font-size: 0.92rem;
+  font-weight: 300;
+  line-height: 1.85;
+}
+
+.contribute-page .page-status {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 1.2rem;
+  padding: 0.3rem 0.55rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--fg-muted);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.67rem;
+  line-height: 1.5;
+}
+
+/* =========================================
+   Shared sections
+   ========================================= */
+
+.contribute-page .contribute-section {
+  margin: 0 0 3.75rem;
+}
+
+.contribute-page .contribute-label {
+  margin: 0 0 0.8rem;
+  color: var(--fg-muted);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.66rem;
+  font-weight: 400;
+  letter-spacing: 0.09em;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+.contribute-page .contribute-section h2,
+.contribute-page .contribute-next h2 {
+  margin: 0;
+  color: var(--fg);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: clamp(1.15rem, 3vw, 1.35rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1.45;
+}
+
+.contribute-page .contribute-section-heading > p:last-child,
+.contribute-page .contribute-report > p:not(.contribute-label),
+.contribute-page .contribute-channel > p:not(.contribute-label),
+.contribute-page .contribute-next > p:not(.contribute-label) {
+  max-width: 680px;
+  margin: 0.85rem 0 0;
+  color: var(--fg-muted);
+  font-size: 0.88rem;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+/* =========================================
+   Contribution cards
+   ========================================= */
+
+.contribute-page .contribute-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+  margin-top: 1.5rem;
+}
+
+.contribute-page .contribute-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.15rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 8px);
+  background: var(--bg2);
+  transition:
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.contribute-page .contribute-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.contribute-page .contribute-card-number {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: var(--fg-muted);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.67rem;
+  letter-spacing: 0.04em;
+}
+
+.contribute-page .contribute-card h3 {
+  margin: 0;
+  color: var(--fg);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.5;
+}
+
+.contribute-page .contribute-card p {
+  margin: 0.7rem 0 1.25rem;
+  color: var(--fg-muted);
+  font-size: 0.81rem;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+.contribute-page .contribute-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: auto;
+  color: var(--fg);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.69rem;
+  line-height: 1.6;
+  text-decoration-color: var(--border);
+  text-underline-offset: 0.22em;
+  transition:
+    color 160ms ease,
+    text-decoration-color 160ms ease;
+}
+
+.contribute-page .contribute-card-link:hover,
+.contribute-page .contribute-card-link:focus-visible {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+/* =========================================
+   Principles
+   ========================================= */
+
+.contribute-page .contribute-principle-list {
+  margin-top: 1.35rem;
+  border-top: 1px solid var(--border);
+}
+
+.contribute-page .contribute-principle {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: 0.75rem;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.contribute-page .contribute-principle-marker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.65rem;
+  height: 1.65rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--fg-muted);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.67rem;
+}
+
+.contribute-page .contribute-principle h3 {
+  margin: 0;
+  color: var(--fg);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.82rem;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.contribute-page .contribute-principle p {
+  margin: 0.35rem 0 0;
+  color: var(--fg-muted);
+  font-size: 0.84rem;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+/* =========================================
+   Reporting checklist
+   ========================================= */
+
+.contribute-page .contribute-checklist {
+  display: grid;
+  gap: 0.85rem;
+  margin: 1.25rem 0 0;
+  padding: 1.15rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 8px);
+  background: var(--bg2);
+  list-style: none;
+}
+
+.contribute-page .contribute-checklist li {
+  display: grid;
+  grid-template-columns: 1rem minmax(0, 1fr);
+  align-items: start;
+  gap: 0.55rem;
+  color: var(--fg-muted);
+  font-size: 0.82rem;
+  font-weight: 300;
+  line-height: 1.75;
+}
+
+.contribute-page .checklist-marker {
+  color: var(--accent);
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.contribute-page .contribute-checklist strong {
+  color: var(--fg);
+  font-weight: 400;
+}
+
+/* =========================================
+   Contribution channel note
+   ========================================= */
+
+.contribute-page .contribute-channel {
+  padding: 1.3rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 8px);
+  background: var(--bg2);
+}
+
+.contribute-page .contribute-channel > p:not(.contribute-label) {
+  margin-top: 0.75rem;
+}
+
+/* =========================================
+   Final links
+   ========================================= */
+
+.contribute-page .contribute-next {
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--border);
+}
+
+.contribute-page .contribute-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.contribute-page .contribute-primary-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid var(--fg);
+  border-radius: var(--radius, 6px);
+  background: var(--fg);
+  color: var(--bg);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.7rem;
+  text-decoration: none;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease;
+}
+
+.contribute-page .contribute-primary-link:visited {
+  color: var(--bg);
+}
+
+.contribute-page .contribute-primary-link:hover,
+.contribute-page .contribute-primary-link:focus-visible {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.contribute-page .contribute-secondary-link,
+.contribute-page .contribute-secondary-link:visited {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--fg);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.7rem;
+  text-decoration-color: var(--border);
+  text-underline-offset: 0.2em;
+  transition:
+    color 160ms ease,
+    text-decoration-color 160ms ease;
+}
+
+.contribute-page .contribute-secondary-link:hover,
+.contribute-page .contribute-secondary-link:focus-visible {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+.contribute-page a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* =========================================
+   Responsive
+   ========================================= */
+
+@media (max-width: 600px) {
+  .contribute-page {
+    width: calc(100% - 2rem);
+    padding-top: 2.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .contribute-page .page-header {
+    margin-bottom: 2.75rem;
+    padding-bottom: 1.6rem;
+  }
+
+  .contribute-page .contribute-section {
+    margin-bottom: 3rem;
+  }
+
+  .contribute-page .contribute-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.7rem;
+  }
+
+  .contribute-page .contribute-card {
+    padding: 1rem;
+  }
+
+  .contribute-page .contribute-card-number {
+    margin-bottom: 0.75rem;
+  }
+
+  .contribute-page .contribute-channel {
+    padding: 1rem;
+  }
+
+  .contribute-page .contribute-actions {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contribute-page *,
+  .contribute-page *::before,
+  .contribute-page *::after {
+    scroll-behavior: auto;
+    transition: none;
+  }
+
+  .contribute-page .contribute-card:hover {
+    transform: none;
+  }
+}

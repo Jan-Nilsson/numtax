@@ -1,0 +1,288 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Contribute | Numtax</title>
+  <meta
+    name="description"
+    content="Discover how to contribute to Numtax through mathematical verification, algorithm review, documentation, and visual exploration."
+  >
+
+  <link rel="icon" href="favicon.ico">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap"
+  >
+
+  <link rel="stylesheet" href="css/numtax.css">
+  <link rel="stylesheet" href="css/contribute.css">
+  <link rel="stylesheet" href="css/footer.css">
+
+  <script src="js/interface/navbar.js" defer></script>
+  <script src="js/interface/theme.js" defer></script>
+  <script src="js/interface/footer.js" defer></script>
+</head>
+
+<body>
+  <div id="navbar-container"></div>
+
+  <main class="content-page contribute-page">
+
+    <header class="page-header">
+      <p class="eyebrow">NUMTAX / COMMUNITY</p>
+
+      <h1>Contribute</h1>
+
+      <p class="page-intro">
+        Numtax is an evolving project at the intersection of number theory,
+        computation, and mathematical visualization. Contributions can help
+        make its results more accurate, its methods more transparent, and its
+        tools more useful.
+      </p>
+
+      <div class="page-status">
+        An independent project in development
+      </div>
+    </header>
+
+    <section
+      class="contribute-section"
+      aria-labelledby="contribute-ways-heading"
+    >
+      <div class="contribute-section-heading">
+        <p class="contribute-label">01 / WAYS TO HELP</p>
+        <h2 id="contribute-ways-heading">Every contribution has a place.</h2>
+        <p>
+          You do not need to contribute code to help improve Numtax.
+          Mathematical insight, careful testing, and clear explanations
+          are valuable too.
+        </p>
+      </div>
+
+      <div class="contribute-grid">
+
+        <article class="contribute-card">
+          <span class="contribute-card-number">01</span>
+
+          <h3>Mathematical verification</h3>
+
+          <p>
+            Review definitions, investigate edge cases, and check whether
+            mathematical claims are supported by sound reasoning.
+          </p>
+
+          <a href="proofs.html" class="contribute-card-link">
+            Explore proofs <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+
+        <article class="contribute-card">
+          <span class="contribute-card-number">02</span>
+
+          <h3>Algorithm review</h3>
+
+          <p>
+            Examine how properties are computed, look for incorrect
+            assumptions, and identify cases where an implementation
+            could produce an unexpected result.
+          </p>
+
+          <a href="methods.html#method-source-heading" class="contribute-card-link">
+            Inspect algorithms <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+
+        <article class="contribute-card">
+          <span class="contribute-card-number">03</span>
+
+          <h3>Visual exploration</h3>
+
+          <p>
+            Look for useful representations, misleading visual patterns,
+            accessibility issues, and opportunities to make numerical
+            relationships easier to understand.
+          </p>
+
+          <a href="views.html" class="contribute-card-link">
+            Explore visualizations <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+
+        <article class="contribute-card">
+          <span class="contribute-card-number">04</span>
+
+          <h3>Documentation</h3>
+
+          <p>
+            Help clarify terminology, improve explanations, connect
+            related concepts, and make mathematical ideas easier to follow.
+          </p>
+
+          <a href="sets.html" class="contribute-card-link">
+            Browse mathematical sets <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+
+      </div>
+    </section>
+
+    <section
+      class="contribute-section contribute-principles"
+      aria-labelledby="contribute-principles-heading"
+    >
+      <p class="contribute-label">02 / PRINCIPLES</p>
+
+      <h2 id="contribute-principles-heading">
+        What makes a useful contribution?
+      </h2>
+
+      <div class="contribute-principle-list">
+
+        <article class="contribute-principle">
+          <span class="contribute-principle-marker">A</span>
+          <div>
+            <h3>Be precise</h3>
+            <p>
+              State the definition, input, or mathematical convention
+              involved. A precise description is easier to evaluate than
+              a general observation.
+            </p>
+          </div>
+        </article>
+
+        <article class="contribute-principle">
+          <span class="contribute-principle-marker">B</span>
+          <div>
+            <h3>Make it reproducible</h3>
+            <p>
+              For a suspected bug, provide the input and explain the
+              expected result versus the observed result. Include the
+              steps needed to reproduce the issue.
+            </p>
+          </div>
+        </article>
+
+        <article class="contribute-principle">
+          <span class="contribute-principle-marker">C</span>
+          <div>
+            <h3>Separate computation from proof</h3>
+            <p>
+              Computed examples can provide evidence and help discover
+              patterns, but they do not automatically establish a
+              general mathematical statement.
+            </p>
+          </div>
+        </article>
+
+        <article class="contribute-principle">
+          <span class="contribute-principle-marker">D</span>
+          <div>
+            <h3>Explain the reasoning</h3>
+            <p>
+              When suggesting a mathematical or algorithmic change,
+              include the reasoning, relevant assumptions, and any
+              known limitations.
+            </p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section
+      class="contribute-section contribute-report"
+      aria-labelledby="contribute-report-heading"
+    >
+      <p class="contribute-label">03 / REPORTING AN ISSUE</p>
+
+      <h2 id="contribute-report-heading">
+        What to include in a report
+      </h2>
+
+      <p>
+        A useful report should make it possible to understand the problem
+        without having to guess what happened.
+      </p>
+
+      <ul class="contribute-checklist">
+        <li>
+          <span class="checklist-marker" aria-hidden="true">—</span>
+          <span><strong>Location:</strong> the page, property, algorithm, or visualization involved.</span>
+        </li>
+        <li>
+          <span class="checklist-marker" aria-hidden="true">—</span>
+          <span><strong>Input:</strong> the exact integer, definition, or sequence being examined.</span>
+        </li>
+        <li>
+          <span class="checklist-marker" aria-hidden="true">—</span>
+          <span><strong>Expected result:</strong> what you believe should happen and why.</span>
+        </li>
+        <li>
+          <span class="checklist-marker" aria-hidden="true">—</span>
+          <span><strong>Observed result:</strong> what actually happened, including any error message.</span>
+        </li>
+        <li>
+          <span class="checklist-marker" aria-hidden="true">—</span>
+          <span><strong>Supporting reasoning:</strong> a proof, reference, derivation, or reproducible example where applicable.</span>
+        </li>
+      </ul>
+    </section>
+
+    <section
+      class="contribute-section contribute-channel"
+      aria-labelledby="contribute-channel-heading"
+    >
+      <p class="contribute-label">04 / GETTING INVOLVED</p>
+
+      <h2 id="contribute-channel-heading">
+        The project is still taking shape.
+      </h2>
+
+      <p>
+        Numtax is being developed incrementally, and its contribution
+        workflow is not yet connected to a public submission channel.
+        This page sets out the kinds of contributions that would be useful
+        and the standards they should follow.
+      </p>
+
+      <p>
+        A public repository, issue tracker, or contact method can be linked
+        here when an official channel is established.
+      </p>
+    </section>
+
+    <section class="contribute-next" aria-labelledby="contribute-next-heading">
+      <p class="contribute-label">START EXPLORING</p>
+
+      <h2 id="contribute-next-heading">
+        Understand the project first.
+      </h2>
+
+      <p>
+        Explore how Numtax represents mathematical sets, documents its
+        algorithms, and distinguishes computed results from mathematical
+        arguments.
+      </p>
+
+      <div class="contribute-actions">
+        <a class="contribute-primary-link" href="methods.html">
+          Read the methods
+        </a>
+
+        <a class="contribute-secondary-link" href="about.html">
+          About Numtax <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer-container"></div>
+</body>
+</html>
