@@ -1,4 +1,3 @@
-
 const searchInput = document.getElementById("method-source-search");
 const categorySelect = document.getElementById("method-source-category");
 const listElement = document.getElementById("method-source-list");
@@ -204,7 +203,6 @@ async function startMethodSourceExplorer() {
 
       const source = await response.text();
 
-      // Ignore an older response if another file was selected in the meantime.
       if (currentRequest !== requestNumber) return;
 
       codeElement.textContent = source;
