@@ -1,75 +1,150 @@
-const NAV_ITEMS = [
-  { href: "index.html", label: "Classify" },
-  { href: "views.html", label: "Explore" },
-  { href: "sets.html", label: "Sets" },
-  { href: "proofs.html", label: "Proofs" },
-  { href: "categories.html", label: "Categories" },
-  { href: "methods.html", label: "Methods" },
-  { href: "about.html", label: "About" },
-];
 
-function renderNavbar() {
+(function () {
+  "use strict";
+
   const container = document.getElementById("navbar-container");
 
-  if (!container) {
-    console.warn('Navbar: no se encontró "#navbar-container".');
-    return;
-  }
+  if (!container) return;
 
-  const currentPage =
-    window.location.pathname.split("/").pop() || "index.html";
+  const links = [
+    { href: "index.html", label: "Classify" },
+    { href: "views.html", label: "Explore" },
+    { href: "sets.html", label: "Sets" },
+    { href: "proofs.html", label: "Proofs" },
+    { href: "categories.html", label: "Categories" }
+  ];
 
-  const nav = document.createElement("nav");
-  nav.className = "navbar";
+  const pathParts = window.location.pathname
+    .split("/")
+    .filter(Boolean);
 
-  const logo = document.createElement("a");
-  logo.href = "index.html";
-  logo.className = "nav-logo";
-  logo.setAttribute("aria-label", "Numtax home");
-  logo.innerHTML = "num<strong>tax</strong>";
+  const currentPage = (
+    pathParts[pathParts.length - 1] || "index.html"
+  ).toLowerCase();
 
-  const links = document.createElement("div");
-  links.className = "nav-links";
+  const linksHTML = links.map(({ href, label }) => {
+    const current = href.toLowerCase() === currentPage;
 
-  NAV_ITEMS.forEach(({ href, label }) => {
-    const link = document.createElement("a");
+    return `
+      <a
+        class="site-nav__link"
+        href="${href}"
+        ${current ? 'aria-current="page"' : ""}
+      >${label}</a>
+    `;
+  }).join("");
 
-    link.href = href;
-    link.className = "nav-link";
-    link.textContent = label;
+  container.innerHTML = `
+    <header class="site-nav">
+      <div class="site-nav__inner">
 
-    if (currentPage === href) {
-      link.classList.add("nav-link--active");
-      link.setAttribute("aria-current", "page");
-    }
+        <a
+          class="site-nav__brand"
+          href="index.html"
+          aria-label="Numtax home"
+        >NUMTAX</a>
 
-    links.appendChild(link);
-  });
+        <nav
+          id="site-primary-nav"
+          class="site-nav__links"
+          aria-label="Main navigation"
+        >
+          ${linksHTML}
+        </nav>
 
-  const themeButton = document.createElement("button");
-  themeButton.id = "theme-toggle";
-  themeButton.className = "theme-btn";
-  themeButton.type = "button";
-  themeButton.setAttribute("aria-label", "Toggle theme");
+        <button
+          class="site-nav__menu-toggle"
+          type="button"
+          aria-label="Open navigation menu"
+          aria-expanded="false"
+          aria-controls="site-primary-nav"
+        >
+          <span class="site-nav__menu-icon" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
 
-  themeButton.innerHTML = `
-    <svg
-      class="sun-icon"
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="1.5"
-      aria-hidden="true"
-    >
-      <circle cx="12" cy="12" r="4"></circle>
-      <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l-1.42-1.42m11.3-11.3 1.42-1.42"></path>
-    </svg>
+        <button
+          id="theme-toggle"
+          class="theme-toggle site-nav__theme-toggle"
+          type="button"
+          data-theme-toggle
+          aria-label="Toggle colour theme"
+          title="Toggle colour theme"
+        >
+          <span aria-hidden="true">◐</span>
+        </button>
+
+      </div>
+    </header>
   `;
 
-  nav.append(logo, links, themeButton);
-  container.replaceChildren(nav);
-}
+  const menuButton = container.querySelector(
+    ".site-nav__menu-toggle"
+  );
 
-renderNavbar();
+  const navigation = container.querySelector(
+    "#site-primary-nav"
+  );
+
+  const menuIcon = container.querySelector(
+    ".site-nav__menu-icon"
+  );
+
+  function setMenuOpen(open) {
+    navigation.classList.toggle("is-open", open);
+    menuIcon.classList.toggle("is-open", open);
+
+    menuButton.setAttribute("aria-expanded", String(open));
+    menuButton.setAttribute(
+      "aria-label",
+      open ? "Close navigation menu" : "Open navigation menu"
+    );
+  }
+
+  menuButton.addEventListener("click", () => {
+    const isOpen =
+      menuButton.getAttribute("aria-expanded") === "true";
+
+    setMenuOpen(!isOpen);
+  });
+
+  navigation.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => setMenuOpen(false));
+  });
+
+  document.addEventListener("click", (event) => {
+    const isOpen =
+      menuButton.getAttribute("aria-expanded") === "true";
+
+    if (isOpen && !container.contains(event.target)) {
+      setMenuOpen(false);
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    const isOpen =
+      menuButton.getAttribute("aria-expanded") === "true";
+
+    if (event.key === "Escape" && isOpen) {
+      setMenuOpen(false);
+      menuButton.focus();
+    }
+  });
+
+  const desktopMedia = window.matchMedia("(min-width: 821px)");
+
+  function handleBreakpointChange(event) {
+    if (event.matches) {
+      setMenuOpen(false);
+    }
+  }
+
+  if (desktopMedia.addEventListener) {
+    desktopMedia.addEventListener("change", handleBreakpointChange);
+  } else {
+    desktopMedia.addListener(handleBreakpointChange);
+  }
+})();
