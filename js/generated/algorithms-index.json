@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-10-28T18:42:22.749Z",
+  "algorithms": [
+    {
+      "id": "js/algorithms/digits.js",
+      "name": "Digits",
+      "category": "Digits",
+      "path": "js/algorithms/digits.js",
+      "url": "js/algorithms/digits.js"
+    },
+    {
+      "id": "js/algorithms/divisors.js",
+      "name": "Divisors",
+      "category": "Divisors",
+      "path": "js/algorithms/divisors.js",
+      "url": "js/algorithms/divisors.js"
+    },
+    {
+      "id": "js/algorithms/factorization.js",
+      "name": "Factorization",
+      "category": "Factorization",
+      "path": "js/algorithms/factorization.js",
+      "url": "js/algorithms/factorization.js"
+    },
+    {
+      "id": "js/algorithms/figurates.js",
+      "name": "Figurates",
+      "category": "Figurate numbers",
+      "path": "js/algorithms/figurates.js",
+      "url": "js/algorithms/figurates.js"
+    },
+    {
+      "id": "js/algorithms/primes.js",
+      "name": "Primes",
+      "category": "Primes",
+      "path": "js/algorithms/primes.js",
+      "url": "js/algorithms/primes.js"
+    },
+    {
+      "id": "js/algorithms/sequences.js",
+      "name": "Sequences",
+      "category": "Sequences",
+      "path": "js/algorithms/sequences.js",
+      "url": "js/algorithms/sequences.js"
+    }
+  ]
+}

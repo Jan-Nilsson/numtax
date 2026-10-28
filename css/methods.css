@@ -1,299 +1,419 @@
-/* Numtax — Methods page
-   Uses the shared tokens from css/numtax.css. */
 
-.methods-page {
-  width: calc(100% - 3rem);
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 3.5rem 0 5rem;
-  color: var(--fg);
+[hidden] {
+  display: none !important;
 }
 
-.methods-page .methods-header,
-.methods-page .methods-hero,
-.methods-page > header {
-  display: grid;
-  gap: .85rem;
-  margin-bottom: 2.75rem;
+/* =========================================
+   METHODS — page layout
+   ========================================= */
+
+.methods-page {
+  width: min(calc(100% - 3rem), 760px);
+  margin: 0 auto;
+  padding: 3.5rem 0 2rem;
+  color: var(--fg);
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.methods-page *,
+.methods-page *::before,
+.methods-page *::after {
+  box-sizing: border-box;
+}
+
+.methods-page .page-header {
+  margin: 0 0 3.25rem;
+  padding: 0 0 2rem;
+  border-bottom: 1px solid var(--border);
 }
 
 .methods-page .eyebrow,
-.methods-page .methods-eyebrow,
-.methods-page .methods-label {
-  color: var(--accent);
-  font-family: var(--mono, 'IBM Plex Mono', monospace);
-  font-size: .68rem;
+.methods-page .page-eyebrow,
+.methods-page .section-label {
+  margin: 0 0 1rem;
+  color: var(--fg-muted);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.72rem;
   font-weight: 400;
-  letter-spacing: .12em;
-  line-height: 1.5;
+  letter-spacing: 0.09em;
+  line-height: 1.6;
   text-transform: uppercase;
 }
 
 .methods-page h1,
-.methods-page .methods-title {
-  margin: 0;
+.methods-page h2,
+.methods-page h3 {
   color: var(--fg);
-  font-family: var(--sans, 'IBM Plex Sans', sans-serif);
-  font-size: clamp(2.1rem, 5vw, 3.1rem);
-  font-weight: 300;
-  letter-spacing: -.045em;
-  line-height: 1.08;
-  overflow-wrap: anywhere;
-}
-
-.methods-page .methods-intro,
-.methods-page .hero-sub,
-.methods-page .methods-description {
-  max-width: 62ch;
-  color: var(--fg-muted);
-  font-family: var(--sans, 'IBM Plex Sans', sans-serif);
-  font-size: .9rem;
-  font-weight: 300;
-  line-height: 1.7;
-}
-
-.methods-page .methods-status,
-.methods-page .status-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-self: start;
-  width: fit-content;
-  margin-top: .3rem;
-  padding: .28rem .55rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius, 6px);
-  color: var(--fg-muted);
-  font-family: var(--mono, 'IBM Plex Mono', monospace);
-  font-size: .65rem;
+  font-family: "IBM Plex Mono", monospace;
   font-weight: 400;
-  letter-spacing: .06em;
-  text-transform: uppercase;
 }
 
-.methods-page section,
-.methods-page .methods-section {
-  min-width: 0;
-  margin-top: 2.5rem;
+.methods-page .page-header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 2.65rem);
+  letter-spacing: -0.065em;
+  line-height: 1.15;
 }
 
-.methods-page .methods-section-title,
-.methods-page section > h2 {
-  margin: 0 0 1rem;
+.methods-page .page-header p {
+  max-width: 610px;
   color: var(--fg-muted);
-  font-family: var(--mono, 'IBM Plex Mono', monospace);
-  font-size: .75rem;
-  font-weight: 400;
-  letter-spacing: .1em;
-  line-height: 1.5;
-  text-transform: uppercase;
+  font-size: 0.92rem;
+  font-weight: 300;
+  line-height: 1.8;
 }
 
-.methods-page .methods-toolbar,
-.methods-page .methods-search-wrap,
-.methods-page .methods-controls {
-  display: flex;
-  align-items: center;
-  gap: .75rem;
-  flex-wrap: wrap;
+.methods-page .page-header .eyebrow,
+.methods-page .page-header .page-eyebrow {
   margin-bottom: 1rem;
 }
 
-.methods-page #method-search,
-.methods-page .method-search {
-  box-sizing: border-box;
+.methods-page .page-header .page-status {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin-top: 0.5rem;
+  padding: 0.3rem 0.55rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--fg-muted);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.68rem;
+  line-height: 1.4;
+}
+
+/* =========================================
+   Sections
+   ========================================= */
+
+.methods-page > section {
+  margin: 0 0 3.5rem;
+}
+
+.methods-page section h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  letter-spacing: -0.035em;
+  line-height: 1.45;
+}
+
+.methods-page section p {
+  color: var(--fg-muted);
+  font-size: 0.88rem;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+.methods-page .methods-introduction {
+  margin-bottom: 3.5rem;
+}
+
+.methods-page .methods-introduction h2 {
+  margin-bottom: 0.85rem;
+}
+
+.methods-page .methods-introduction p {
+  max-width: 680px;
+  margin: 0 0 0.9rem;
+}
+
+/* =========================================
+   Catalog heading and search
+   ========================================= */
+
+.methods-page .methods-catalog {
+  margin-bottom: 3.75rem;
+}
+
+.methods-page .section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.methods-page .section-heading h2 {
+  margin: 0;
+}
+
+.methods-page #methods-count {
+  flex: 0 0 auto;
+  margin: 0;
+  color: var(--fg-muted);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.68rem;
+  line-height: 1.6;
+  text-align: right;
+}
+
+.methods-page #method-search {
+  display: block;
   width: 100%;
-  min-width: 0;
-  min-height: 40px;
-  padding: .65rem .85rem;
+  min-height: 44px;
+  margin: 0 0 1.25rem;
+  padding: 0.7rem 0.85rem;
   border: 1px solid var(--border);
   border-radius: var(--radius, 6px);
   outline: none;
   background: var(--bg2);
   color: var(--fg);
-  font-family: var(--sans, 'IBM Plex Sans', sans-serif);
-  font-size: .85rem;
-  transition: border-color .15s, box-shadow .15s;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 0.86rem;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease;
 }
 
-.methods-page #method-search::placeholder,
-.methods-page .method-search::placeholder {
+.methods-page #method-search::placeholder {
   color: var(--fg-muted);
+  opacity: 0.8;
 }
 
-.methods-page #method-search:focus,
-.methods-page .method-search:focus {
+.methods-page #method-search:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-dim);
 }
 
-.methods-page #methods-count,
-.methods-page .methods-count {
-  color: var(--fg-muted);
-  font-family: var(--mono, 'IBM Plex Mono', monospace);
-  font-size: .68rem;
-  letter-spacing: .04em;
+.methods-page #method-search:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
+
+/* =========================================
+   Method cards
+   ========================================= */
 
 .methods-page #methods-grid,
 .methods-page .methods-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: .75rem;
-  min-width: 0;
+  gap: 0.85rem;
 }
 
-/* Cards retain the site's restrained surfaces and fine borders. */
-.methods-page [data-method-card],
-.methods-page .method-card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: .65rem;
+.methods-page #methods-grid > [data-method-card],
+.methods-page .methods-grid > [data-method-card],
+.methods-page [data-method-card] {
   min-width: 0;
-  padding: 1rem 1.05rem;
+  padding: 1.15rem 1.15rem 1.2rem;
   border: 1px solid var(--border);
-  border-radius: var(--radius, 6px);
+  border-radius: var(--radius, 8px);
   background: var(--bg2);
-  color: var(--fg);
-  text-align: left;
-  text-decoration: none;
-  transition: border-color .15s, background-color .15s, transform .15s;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    transform 160ms ease;
 }
 
-.methods-page [data-method-card]:hover,
-.methods-page .method-card:hover {
+.methods-page [data-method-card]:hover {
   border-color: var(--accent);
-  background: var(--bg3);
+  background: var(--bg2);
+  transform: translateY(-2px);
 }
 
-.methods-page [data-method-card]:active,
-.methods-page .method-card:active {
-  transform: translateY(1px);
+.methods-page [data-method-card]:focus-within {
+  border-color: var(--accent);
 }
 
-.methods-page [data-method-card]:focus-visible,
-.methods-page .method-card:focus-visible,
-.methods-page a:focus-visible,
-.methods-page button:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
+.methods-page [data-method-card] h3 {
+  margin: 0.3rem 0 0.65rem;
+  font-size: 0.96rem;
+  letter-spacing: -0.035em;
+  line-height: 1.45;
 }
 
-.methods-page [data-method-card] h2,
-.methods-page [data-method-card] h3,
-.methods-page .method-card h2,
-.methods-page .method-card h3,
-.methods-page .method-card-title,
-.methods-page .methods-card-title {
-  margin: 0;
-  color: var(--fg);
-  font-family: var(--mono, 'IBM Plex Mono', monospace);
-  font-size: .78rem;
-  font-weight: 400;
-  letter-spacing: .015em;
-  line-height: 1.5;
-}
-
-.methods-page [data-method-card] p,
-.methods-page .method-card p,
-.methods-page .method-card-description,
-.methods-page .methods-card-description {
-  margin: 0;
-  color: var(--fg-muted);
-  font-family: var(--sans, 'IBM Plex Sans', sans-serif);
-  font-size: .8rem;
-  font-weight: 300;
-  line-height: 1.6;
-}
-
-.methods-page .method-card-meta,
-.methods-page .methods-card-meta {
-  margin-top: auto;
-  color: var(--fg-muted);
-  font-family: var(--mono, 'IBM Plex Mono', monospace);
-  font-size: .64rem;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-}
-
-.methods-page #methods-empty,
-.methods-page .methods-empty {
-  margin-top: .75rem;
-  padding: .9rem 1rem;
-  border: 1px dashed var(--border);
-  border-radius: var(--radius, 6px);
-  color: var(--fg-muted);
-  font-size: .82rem;
-  line-height: 1.6;
-}
-
-.methods-page .methods-notes,
-.methods-page .methods-content,
-.methods-page .methods-prose {
-  color: var(--fg-muted);
-  font-size: .85rem;
-  font-weight: 300;
+.methods-page [data-method-card] p {
+  margin: 0.5rem 0 0;
+  font-size: 0.81rem;
   line-height: 1.75;
 }
 
-.methods-page .methods-notes p + p,
-.methods-page .methods-content p + p,
-.methods-page .methods-prose p + p {
-  margin-top: .8rem;
+.methods-page .method-number {
+  display: inline-block;
+  color: var(--fg-muted);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.67rem;
+  letter-spacing: 0.04em;
 }
 
-.methods-page a:not([data-method-card]):not(.method-card) {
+.methods-page .method-status {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin-top: 0.85rem;
+  padding: 0.22rem 0.45rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--fg-muted);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.63rem;
+  line-height: 1.5;
+}
+
+.methods-page [data-method-card] a {
+  color: var(--fg);
+  text-decoration-color: var(--border);
+  text-underline-offset: 0.2em;
+  transition:
+    color 160ms ease,
+    text-decoration-color 160ms ease;
+}
+
+.methods-page [data-method-card] a:hover,
+.methods-page [data-method-card] a:focus-visible {
   color: var(--accent);
-  text-decoration-color: transparent;
-  text-underline-offset: .2em;
-  transition: text-decoration-color .15s;
+  text-decoration-color: var(--accent);
 }
 
-.methods-page a:not([data-method-card]):not(.method-card):hover {
-  text-decoration-color: currentColor;
+.methods-page #methods-empty {
+  margin: 1.25rem 0 0;
+  padding: 1rem;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius, 8px);
+  color: var(--fg-muted);
+  font-size: 0.85rem;
+  line-height: 1.7;
 }
 
-.methods-page .methods-footer,
-.methods-page > footer {
-  margin-top: 3rem;
-  padding-top: 1rem;
+/* =========================================
+   Additional information
+   ========================================= */
+
+.methods-page .methods-standard h2 {
+  margin-bottom: 0.85rem;
+}
+
+.methods-page .methods-standard p {
+  max-width: 680px;
+  margin: 0 0 0.9rem;
+}
+
+.methods-page a {
+  color: var(--fg);
+  text-decoration-color: var(--border);
+  text-underline-offset: 0.2em;
+}
+
+.methods-page a:visited {
+  color: var(--fg);
+}
+
+.methods-page a:hover,
+.methods-page a:focus-visible {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+/* =========================================
+   Footer
+   ========================================= */
+
+.methods-page .site-footer,
+.site-footer {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  margin-top: 4rem;
+  padding: 1.2rem 0 0;
   border-top: 1px solid var(--border);
   color: var(--fg-muted);
-  font-size: .75rem;
-  line-height: 1.6;
+  font-size: 0.76rem;
+  font-weight: 300;
+  line-height: 1.7;
 }
+
+.methods-page .site-footer p,
+.site-footer p {
+  margin: 0;
+  color: var(--fg-muted);
+  font-size: inherit;
+}
+
+.methods-page .site-footer a,
+.site-footer a {
+  color: var(--fg);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.72rem;
+  text-decoration-color: var(--border);
+  text-underline-offset: 0.2em;
+  transition:
+    color 160ms ease,
+    text-decoration-color 160ms ease;
+}
+
+.methods-page .site-footer a:visited,
+.site-footer a:visited {
+  color: var(--fg);
+}
+
+.methods-page .site-footer a:hover,
+.methods-page .site-footer a:focus-visible,
+.site-footer a:hover,
+.site-footer a:focus-visible {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+/* =========================================
+   Responsive
+   ========================================= */
 
 @media (max-width: 600px) {
   .methods-page {
     width: calc(100% - 2rem);
-    padding: 2rem 0 4rem;
+    padding-top: 2.5rem;
+    padding-bottom: 1.5rem;
   }
 
-  .methods-page .methods-header,
-  .methods-page .methods-hero,
-  .methods-page > header {
-    margin-bottom: 2rem;
+  .methods-page .page-header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.6rem;
+  }
+
+  .methods-page > section {
+    margin-bottom: 2.75rem;
+  }
+
+  .methods-page .section-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .methods-page #methods-count {
+    text-align: left;
   }
 
   .methods-page #methods-grid,
   .methods-page .methods-grid {
     grid-template-columns: minmax(0, 1fr);
-    gap: .65rem;
+    gap: 0.7rem;
   }
 
-  .methods-page section,
-  .methods-page .methods-section {
-    margin-top: 2rem;
+  .methods-page [data-method-card] {
+    padding: 1rem;
+  }
+
+  .methods-page .site-footer,
+  .site-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: 3rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .methods-page *,
   .methods-page *::before,
-  .methods-page *::after {
-    scroll-behavior: auto !important;
-    transition-duration: .01ms !important;
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
+  .methods-page *::after,
+  .site-footer a {
+    scroll-behavior: auto;
+    transition: none;
+  }
+
+  .methods-page [data-method-card]:hover {
+    transform: none;
   }
 }

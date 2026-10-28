@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,21 +12,26 @@
   >
 
   <link rel="icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap">
   <link rel="stylesheet" href="css/numtax.css">
   <link rel="stylesheet" href="css/methods.css">
+  <link rel="stylesheet" href="css/method-source.css">
+  <link rel="stylesheet" href="css/footer.css">
 
   <script src="js/interface/navbar.js" defer></script>
   <script src="js/interface/theme.js" defer></script>
   <script src="js/interface/methods.js" defer></script>
+  <script src="js/interface/footer.js" defer></script>
 </head>
 
 <body>
   <div id="navbar-container"></div>
 
-  <main class="content-page methods-page">
+  <main class="main methods-page">
     <header class="page-header">
       <p class="eyebrow">NUMTAX / DOCUMENTATION</p>
-
       <h1>Methods</h1>
 
       <p class="page-intro">
@@ -43,9 +49,9 @@
 
       <p>
         Numtax uses computational methods to investigate the properties of
-        integers. This section will document the implementations used by the
-        project, including their purpose, assumptions, limitations, and
-        mathematical justification.
+        integers. This section will document the implementations used by
+        the project, including their purpose, assumptions, limitations,
+        and mathematical justification.
       </p>
 
       <p>
@@ -62,11 +68,7 @@
           <p>Browse the topics planned for documentation.</p>
         </div>
 
-        <p
-          id="methods-count"
-          class="methods-count"
-          aria-live="polite"
-        >
+        <p id="methods-count" class="methods-count" aria-live="polite">
           6 topics
         </p>
       </div>
@@ -178,9 +180,81 @@
       </p>
     </section>
 
+    <section class="method-source-explorer" aria-labelledby="method-source-heading">
+      <header class="method-source-heading">
+        <h2 id="method-source-heading">Algorithm source</h2>
+        <p>
+          Browse the actual JavaScript files used by Numtax. The code is loaded
+          directly from <code>js/algorithms/</code>, so it is not copied into
+          this page or maintained twice. New files appear after the next build.
+        </p>
+      </header>
+
+      <div class="method-source-toolbar">
+        <div class="method-source-control">
+          <label for="method-source-search">Search files</label>
+          <input
+            id="method-source-search"
+            type="search"
+            placeholder="e.g. primes, factorization…"
+            autocomplete="off"
+          >
+        </div>
+
+        <div class="method-source-control">
+          <label for="method-source-category">Category</label>
+          <select id="method-source-category">
+            <option value="">All categories</option>
+          </select>
+        </div>
+
+        <span id="method-source-count" class="method-source-count" aria-live="polite">
+          Loading…
+        </span>
+      </div>
+
+      <p id="method-source-status" class="method-source-status" role="status" aria-live="polite">
+        Preparing source explorer…
+      </p>
+
+      <div class="method-source-layout">
+        <nav class="method-source-sidebar" aria-label="Algorithm source files">
+          <ul id="method-source-list" class="method-source-list"></ul>
+        </nav>
+
+        <article id="method-source-viewer" class="method-source-viewer" aria-busy="false">
+          <header class="method-source-viewer-header">
+            <div class="method-source-file-info">
+              <span id="method-source-file-category" class="method-source-file-category"></span>
+              <h3 id="method-source-title">Select an algorithm</h3>
+              <code id="method-source-file-path" class="method-source-file-path"></code>
+            </div>
+
+            <a
+              id="method-source-open-file"
+              class="method-source-open-file"
+              href="#"
+              target="_blank"
+              rel="noopener"
+              hidden
+            >
+              Open source file ↗
+            </a>
+          </header>
+
+          <p id="method-source-empty" class="method-source-empty">
+            Choose a file to inspect its source code.
+          </p>
+
+          <div id="method-source-code-panel" class="method-source-code-panel" hidden>
+            <pre><code id="method-source-code"></code></pre>
+          </div>
+        </article>
+      </div>
+    </section>
+
     <section class="methods-standard">
       <h2>What each method page will contain</h2>
-
       <ul>
         <li>The mathematical problem and definitions.</li>
         <li>A description of the actual implementation.</li>
@@ -191,11 +265,8 @@
     </section>
   </main>
 
-  <footer class="site-footer">
-    <p>
-      Numtax · Mathematical exploration and number classification
-    </p>
-    <a href="about.html">About Numtax</a>
-  </footer>
+  <div id="footer-container"></div>
+
+  <script type="module" src="js/interface/method-source.js"></script>
 </body>
 </html>
