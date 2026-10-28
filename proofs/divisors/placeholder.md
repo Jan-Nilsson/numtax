@@ -1,59 +1,88 @@
-# PLACEHOLDER — Infinitude of prime numbers
 
-> **Template only:** this is a demonstration of the infinitude
-> of prime numbers, not a proof of a property in this category.
-> Replace it with the appropriate result when documenting the
-> actual properties of Numtax.
+# The Number of Positive Divisors from Prime Factorization
 
-## Theorem
+**Status:** Proof available  
+**Category:** Divisors  
+**Topic:** Finite set cardinality
 
-There are infinitely many prime numbers.
+## Claim
+
+Let \(n\geq2\) have prime factorization
+
+\[
+n=p_1^{a_1}p_2^{a_2}\cdots p_r^{a_r},
+\]
+
+where the primes \(p_1,\ldots,p_r\) are distinct and each \(a_i\geq1\).
+
+Let
+
+\[
+D(n)=\{d\in\mathbb{N}:d\mid n\}
+\]
+
+be the set of positive divisors of \(n\).
+
+Then
+
+\[
+\boxed{|D(n)|=\prod_{i=1}^{r}(a_i+1)}
+\]
 
 ## Proof
 
-We proceed by contradiction.
-
-Suppose that there are only finitely many prime numbers. Let
-them be
+By unique prime factorization, every positive divisor \(d\) of \(n\) can be written uniquely as
 
 \[
-p_1,p_2,\ldots,p_k.
+d=p_1^{b_1}p_2^{b_2}\cdots p_r^{b_r},
 \]
 
-Consider the integer
+where each exponent satisfies
 
 \[
-N=p_1p_2\cdots p_k+1.
+0\leq b_i\leq a_i.
 \]
 
-Since \(N>1\), it has at least one prime divisor. Let this
-prime divisor be \(q\).
+Conversely, every choice of exponents satisfying these inequalities produces a positive divisor of \(n\).
 
-By our assumption, \(q\) must be one of the listed primes.
-Therefore, \(q\) divides the product
+Thus, the divisors of \(n\) correspond one-to-one with the exponent tuples
 
 \[
-P=p_1p_2\cdots p_k.
+(b_1,b_2,\ldots,b_r)
 \]
 
-But \(q\) also divides \(N\). Consequently, \(q\) must divide
-their difference:
+such that \(b_i\in\{0,1,\ldots,a_i\}\) for every \(i\).
+
+There are exactly \(a_i+1\) choices for each exponent \(b_i\). Since the choices can be made independently, the total number of exponent tuples is
 
 \[
-N-P=1.
+(a_1+1)(a_2+1)\cdots(a_r+1).
 \]
 
-This is impossible, because no prime number divides \(1\).
-
-The assumption that there are only finitely many primes is
-therefore false. Hence there are infinitely many prime numbers.
+The one-to-one correspondence therefore gives
 
 \[
-\boxed{\text{There are infinitely many primes.}}
+|D(n)|=\prod_{i=1}^{r}(a_i+1).
 \]
 
 \(\square\)
 
-## References
+## Example
 
-Euclid, *Elements*, Book IX, Proposition 20.
+Since
+
+\[
+12=2^2\cdot3^1,
+\]
+
+the number of positive divisors of \(12\) is
+
+\[
+|D(12)|=(2+1)(1+1)=6.
+\]
+
+Indeed, the positive divisors are \(1,2,3,4,6,12\).
+
+## Cardinality consequence
+
+The prime factorization of a positive integer determines the exact cardinality of its set of positive divisors.

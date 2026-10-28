@@ -1,59 +1,64 @@
-# PLACEHOLDER — Infinitude of prime numbers
 
-> **Template only:** this is a demonstration of the infinitude
-> of prime numbers, not a proof of a property in this category.
-> Replace it with the appropriate result when documenting the
-> actual properties of Numtax.
+# Infinitely Many Integers Have Exactly k Prime Factors
 
-## Theorem
+**Status:** Proof available  
+**Category:** Factorization  
+**Topic:** Set cardinality
 
-There are infinitely many prime numbers.
+## Claim
+
+For every fixed positive integer \(k\), the set
+
+\[
+A_k=\{n\geq 2:\Omega(n)=k\}
+\]
+
+is infinite, where \(\Omega(n)\) counts prime factors with multiplicity.
+
+For example, \(\Omega(12)=3\), because
+
+\[
+12=2\cdot2\cdot3.
+\]
 
 ## Proof
 
-We proceed by contradiction.
+Fix any positive integer \(k\).
 
-Suppose that there are only finitely many prime numbers. Let
-them be
+There are infinitely many odd primes, since the set of all primes is infinite and only one prime is even.
+
+For each odd prime \(p\), define
 
 \[
-p_1,p_2,\ldots,p_k.
+n_p=2^{k-1}p.
 \]
 
-Consider the integer
+The prime factorization of \(n_p\) consists of \(k-1\) copies of the prime \(2\), together with one copy of \(p\). Therefore,
 
 \[
-N=p_1p_2\cdots p_k+1.
+\Omega(n_p)=k.
 \]
 
-Since \(N>1\), it has at least one prime divisor. Let this
-prime divisor be \(q\).
+Consequently, every \(n_p\) belongs to \(A_k\).
 
-By our assumption, \(q\) must be one of the listed primes.
-Therefore, \(q\) divides the product
+If \(p\) and \(q\) are distinct odd primes, then
 
 \[
-P=p_1p_2\cdots p_k.
+2^{k-1}p\neq 2^{k-1}q.
 \]
 
-But \(q\) also divides \(N\). Consequently, \(q\) must divide
-their difference:
+Thus, distinct odd primes produce distinct elements of \(A_k\).
+
+Because there are infinitely many odd primes, this construction produces infinitely many distinct elements of \(A_k\). Therefore, \(A_k\) is infinite.
+
+Finally, \(A_k\) is a subset of the positive integers. Hence, it is countably infinite.
 
 \[
-N-P=1.
-\]
-
-This is impossible, because no prime number divides \(1\).
-
-The assumption that there are only finitely many primes is
-therefore false. Hence there are infinitely many prime numbers.
-
-\[
-\boxed{\text{There are infinitely many primes.}}
+\boxed{|A_k|=\aleph_0}
 \]
 
 \(\square\)
 
-## References
+## Cardinality consequence
 
-Euclid, *Elements*, Book IX, Proposition 20.
+For every fixed \(k\geq1\), infinitely many positive integers have exactly \(k\) prime factors when multiplicities are counted.

@@ -1,59 +1,79 @@
-# PLACEHOLDER — Infinitude of prime numbers
 
-> **Template only:** this is a demonstration of the infinitude
-> of prime numbers, not a proof of a property in this category.
-> Replace it with the appropriate result when documenting the
-> actual properties of Numtax.
+# The Set of Fibonacci Values Is Countably Infinite
 
-## Theorem
+**Status:** Proof available  
+**Category:** Sequences  
+**Topic:** Set cardinality
 
-There are infinitely many prime numbers.
+## Claim
+
+The set of distinct Fibonacci values is countably infinite.
+
+Let the Fibonacci sequence be defined by
+
+\[
+F_0=0,\qquad F_1=1,
+\]
+
+and
+
+\[
+F_{n+2}=F_{n+1}+F_n,\qquad n\geq0.
+\]
+
+Define
+
+\[
+\mathcal{F}=\{F_n:n\geq0\}.
+\]
+
+We claim that
+
+\[
+|\mathcal{F}|=\aleph_0.
+\]
 
 ## Proof
 
-We proceed by contradiction.
-
-Suppose that there are only finitely many prime numbers. Let
-them be
+For every \(n\geq2\), the recurrence relation gives
 
 \[
-p_1,p_2,\ldots,p_k.
+F_{n+1}=F_n+F_{n-1}.
 \]
 
-Consider the integer
+The Fibonacci terms \(F_{n-1}\) are positive for \(n\geq2\). Consequently,
 
 \[
-N=p_1p_2\cdots p_k+1.
+F_{n+1}>F_n
+\qquad\text{for all }n\geq2.
 \]
 
-Since \(N>1\), it has at least one prime divisor. Let this
-prime divisor be \(q\).
-
-By our assumption, \(q\) must be one of the listed primes.
-Therefore, \(q\) divides the product
+Thus, the terms
 
 \[
-P=p_1p_2\cdots p_k.
+F_2,F_3,F_4,\ldots
 \]
 
-But \(q\) also divides \(N\). Consequently, \(q\) must divide
-their difference:
+are strictly increasing and therefore all distinct.
+
+It follows that \(\mathcal{F}\) contains infinitely many distinct elements.
+
+Every Fibonacci value is a non-negative integer, so
 
 \[
-N-P=1.
+\mathcal{F}\subseteq\mathbb{N}_0.
 \]
 
-This is impossible, because no prime number divides \(1\).
+Since \(\mathbb{N}_0\) is countable, \(\mathcal{F}\) is at most countable. As it is also infinite, it must be countably infinite.
 
-The assumption that there are only finitely many primes is
-therefore false. Hence there are infinitely many prime numbers.
+Therefore,
 
 \[
-\boxed{\text{There are infinitely many primes.}}
+\boxed{|\mathcal{F}|=\aleph_0}
 \]
 
 \(\square\)
 
-## References
+## Cardinality consequence
 
-Euclid, *Elements*, Book IX, Proposition 20.
+The set of distinct Fibonacci values is countably infinite, even though the sequence begins with a repeated value: \(F_1=F_2=1\).

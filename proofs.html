@@ -1,23 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta
-    name="description"
-    content="Mathematical proofs and cardinality results for Numtax properties."
-  >
+  <meta name="description" content="Mathematical proofs and cardinality results for Numtax properties.">
   <title>Proofs — Numtax</title>
 
   <link rel="icon" href="favicon.ico">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap"
-  >
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap">
 
   <link rel="stylesheet" href="css/numtax.css">
   <link rel="stylesheet" href="css/proofs.css">
@@ -34,25 +30,26 @@
   <div id="navbar-container"></div>
 
   <main class="proofs-page">
+
     <header class="proofs-header">
-      <p class="proofs-eyebrow">NUMTAX / MATHEMATICAL LIBRARY</p>
+      <p class="proofs-eyebrow">NUMTAX / SET CARDINALITY</p>
       <h1>Proofs</h1>
 
       <p class="proofs-intro">
-        Browse mathematical statements, cardinality results, and their proofs.
-        The entries currently shown are clearly marked placeholders for layout testing.
+        This library focuses on mathematical statements about the cardinality
+        of sets: how many elements they contain, whether they are finite or
+        infinite, and whether two sets have the same cardinality.
+        It does not provide proofs of why an individual integer belongs to
+        a particular set. Number classification and membership are handled
+        separately through mathematical definitions and algorithms.
       </p>
     </header>
 
+
     <section class="proofs-tools" aria-label="Filter proofs">
       <label class="proofs-search-label" for="proof-search">Search proofs</label>
-      <input
-        id="proof-search"
-        class="proofs-search"
-        type="search"
-        placeholder="Search by title or category…"
-        autocomplete="off"
-      >
+      <input id="proof-search" class="proofs-search" type="search" placeholder="Search by title or category…"
+        autocomplete="off">
 
       <label class="proofs-search-label" for="proof-category">Category</label>
       <select id="proof-category" class="proofs-select">
@@ -73,16 +70,12 @@
       </p>
     </div>
 
-    <section
-      id="proofs-list"
-      class="proofs-list"
-      aria-label="Proof entries"
-      aria-live="polite"
-    >
+    <section id="proofs-list" class="proofs-list" aria-label="Proof entries" aria-live="polite">
       <p class="proofs-loading">Loading proof documents…</p>
     </section>
   </main>
 
   <div id="footer-container"></div>
 </body>
+
 </html>

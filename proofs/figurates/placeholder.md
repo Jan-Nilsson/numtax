@@ -1,59 +1,79 @@
-# PLACEHOLDER — Infinitude of prime numbers
 
-> **Template only:** this is a demonstration of the infinitude
-> of prime numbers, not a proof of a property in this category.
-> Replace it with the appropriate result when documenting the
-> actual properties of Numtax.
+# The Set of Triangular Numbers Is Countably Infinite
 
-## Theorem
+**Status:** Proof available  
+**Category:** Figurates  
+**Topic:** Set cardinality
 
-There are infinitely many prime numbers.
+## Claim
+
+The set of positive triangular numbers is countably infinite.
+
+Define
+
+\[
+T_n=\frac{n(n+1)}{2},\qquad n\geq1,
+\]
+
+and let
+
+\[
+\mathcal{T}=\{T_n:n\geq1\}.
+\]
+
+We claim that
+
+\[
+|\mathcal{T}|=\aleph_0.
+\]
 
 ## Proof
 
-We proceed by contradiction.
-
-Suppose that there are only finitely many prime numbers. Let
-them be
+First, observe that consecutive triangular numbers satisfy
 
 \[
-p_1,p_2,\ldots,p_k.
+T_{n+1}-T_n
+=
+\frac{(n+1)(n+2)}{2}
+-
+\frac{n(n+1)}{2}
+=n+1.
 \]
 
-Consider the integer
+Since \(n+1>0\) for every \(n\geq1\),
 
 \[
-N=p_1p_2\cdots p_k+1.
+T_{n+1}>T_n.
 \]
 
-Since \(N>1\), it has at least one prime divisor. Let this
-prime divisor be \(q\).
+Therefore, the sequence of triangular numbers is strictly increasing. In particular, no two different positive indices produce the same triangular number.
 
-By our assumption, \(q\) must be one of the listed primes.
-Therefore, \(q\) divides the product
+Now define the function
 
 \[
-P=p_1p_2\cdots p_k.
+f:\mathbb{N}_{\geq1}\to\mathcal{T}
 \]
 
-But \(q\) also divides \(N\). Consequently, \(q\) must divide
-their difference:
+by
 
 \[
-N-P=1.
+f(n)=T_n.
 \]
 
-This is impossible, because no prime number divides \(1\).
+The function is surjective by the definition of \(\mathcal{T}\), since every element of \(\mathcal{T}\) is a triangular number \(T_n\).
 
-The assumption that there are only finitely many primes is
-therefore false. Hence there are infinitely many prime numbers.
+It is also injective because the triangular numbers are strictly increasing.
+
+Thus, \(f\) is a bijection between the positive integers and \(\mathcal{T}\).
+
+The two sets therefore have the same cardinality:
 
 \[
-\boxed{\text{There are infinitely many primes.}}
+\boxed{|\mathcal{T}|=\aleph_0}
 \]
 
 \(\square\)
 
-## References
+## Cardinality consequence
 
-Euclid, *Elements*, Book IX, Proposition 20.
+The set of positive triangular numbers is countably infinite: its elements can be paired one-to-one with the positive integers.

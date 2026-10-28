@@ -1,59 +1,60 @@
-# PLACEHOLDER — Infinitude of prime numbers
 
-> **Template only:** this is a demonstration of the infinitude
-> of prime numbers, not a proof of a property in this category.
-> Replace it with the appropriate result when documenting the
-> actual properties of Numtax.
+# The Number of Positive Integers with Exactly k Digits
 
-## Theorem
+**Status:** Proof available  
+**Category:** Digits  
+**Topic:** Finite set cardinality
 
-There are infinitely many prime numbers.
+## Claim
+
+For every positive integer \(k\), the set of positive integers with exactly \(k\) decimal digits has cardinality
+
+\[
+|D_k|=9\cdot10^{k-1},
+\]
+
+where
+
+\[
+D_k=\{n\in\mathbb{N}:10^{k-1}\leq n<10^k\}.
+\]
 
 ## Proof
 
-We proceed by contradiction.
+An integer has exactly \(k\) decimal digits if and only if it lies between \(10^{k-1}\) and \(10^k-1\), inclusive.
 
-Suppose that there are only finitely many prime numbers. Let
-them be
+Thus, the smallest element of \(D_k\) is \(10^{k-1}\), and the largest is \(10^k-1\).
+
+The number of integers in this interval is
 
 \[
-p_1,p_2,\ldots,p_k.
+(10^k-1)-10^{k-1}+1.
 \]
 
-Consider the integer
+Simplifying gives
 
 \[
-N=p_1p_2\cdots p_k+1.
+10^k-10^{k-1}
+=10^{k-1}(10-1)
+=9\cdot10^{k-1}.
 \]
 
-Since \(N>1\), it has at least one prime divisor. Let this
-prime divisor be \(q\).
-
-By our assumption, \(q\) must be one of the listed primes.
-Therefore, \(q\) divides the product
+Therefore,
 
 \[
-P=p_1p_2\cdots p_k.
-\]
-
-But \(q\) also divides \(N\). Consequently, \(q\) must divide
-their difference:
-
-\[
-N-P=1.
-\]
-
-This is impossible, because no prime number divides \(1\).
-
-The assumption that there are only finitely many primes is
-therefore false. Hence there are infinitely many prime numbers.
-
-\[
-\boxed{\text{There are infinitely many primes.}}
+\boxed{|D_k|=9\cdot10^{k-1}}
 \]
 
 \(\square\)
 
-## References
+## Example
 
-Euclid, *Elements*, Book IX, Proposition 20.
+For \(k=3\), the set contains all integers from \(100\) through \(999\). Its cardinality is
+
+\[
+|D_3|=9\cdot10^2=900.
+\]
+
+## Cardinality consequence
+
+For every fixed number of decimal digits, the corresponding set of positive integers is finite and its size is given by the formula above.
