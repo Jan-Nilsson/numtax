@@ -1,3 +1,4 @@
+
 import { PROPERTY_REGISTRY, CATEGORY_REGISTRY } from '../registry.js';
 import { drawPolar } from './views/polar.js';
 import { drawNumberLine } from './views/number-line.js';
@@ -54,6 +55,17 @@ const RENDERERS = {
   modular: drawModular
 };
 
+/*
+ * Shared sample for the six view previews:
+ * all primes below 50, using the same scan limit.
+ */
+const SAMPLE_PRIMES = [
+  2, 3, 5, 7, 11, 13, 17, 19,
+  23, 29, 31, 37, 41, 43, 47
+];
+
+const SAMPLE_SCAN_LIMIT = 50;
+
 const PROPERTIES = PROPERTY_REGISTRY.filter(
   property =>
     property.visualizations?.includes('polar') ||
@@ -68,6 +80,7 @@ let worker;
 let requestId = 0;
 let selectedCategory = null;
 let selectedView = null;
+let previewRenderFrame = null;
 
 const pending = new Map();
 const cache = new Map();
@@ -166,32 +179,91 @@ function categoryCards(viewKey) {
         <span class="polar-category-title">
           ${escapeHtml(category.label)}
         </span>
+
         <span class="explore-card-description">
           ${escapeHtml(category.description)}
         </span>
-        <span class="polar-category-count">${count} properties</span>
-        <span class="polar-category-arrow">→</span>
+
+        <span class="polar-category-count">
+          ${count} properties
+        </span>
+
+        <span class="polar-category-arrow" aria-hidden="true">→</span>
       </button>
     `;
   }).join('');
 }
 
+/*
+ * Each view card includes a canvas using the same renderer
+ * as the full visualization.
+ */
 function viewCards() {
   return VIEWS.map(view => `
     <button
-      class="polar-category-card"
+      class="polar-category-card explore-view-card"
       data-view="${escapeHtml(view.key)}"
       type="button"
+      aria-label="${escapeHtml(view.label)}. ${escapeHtml(view.description)} Example preview using prime numbers up to 50."
     >
+      <span
+        class="polar-canvas-wrap explore-view-preview ${view.canvasClass}"
+        aria-hidden="true"
+      >
+        <canvas
+          class="polar-canvas explore-preview-canvas"
+          data-view-preview="${escapeHtml(view.key)}"
+          aria-hidden="true"
+        ></canvas>
+      </span>
+
       <span class="polar-category-title">
         ${escapeHtml(view.label)}
       </span>
+
       <span class="explore-card-description">
         ${escapeHtml(view.description)}
       </span>
-      <span class="polar-category-arrow">→</span>
+
+      <span class="explore-view-example">
+        Example · primes ≤ 50
+      </span>
+
+      <span class="polar-category-arrow" aria-hidden="true">→</span>
     </button>
   `).join('');
+}
+
+/*
+ * Draw preview canvases only after the cards have been inserted
+ * into the visible page, so their dimensions can be measured.
+ */
+function renderViewPreviews() {
+  if (!home || home.hidden) return;
+
+  home.querySelectorAll('[data-view-preview]').forEach(canvas => {
+    const viewKey = canvas.dataset.viewPreview;
+    const renderer = RENDERERS[viewKey];
+
+    if (!renderer) return;
+
+    try {
+      renderer(canvas, SAMPLE_PRIMES, SAMPLE_SCAN_LIMIT);
+    } catch (error) {
+      console.error(`Could not render ${viewKey} preview:`, error);
+    }
+  });
+}
+
+function scheduleViewPreviewRender() {
+  if (previewRenderFrame !== null) {
+    cancelAnimationFrame(previewRenderFrame);
+  }
+
+  previewRenderFrame = requestAnimationFrame(() => {
+    previewRenderFrame = null;
+    renderViewPreviews();
+  });
 }
 
 function setScreen(screen) {
@@ -209,11 +281,14 @@ function renderHome() {
   home.innerHTML = `
     <section class="explore-section">
       <h2 class="explore-section-title">Choose a view</h2>
+
       <div class="polar-category-grid">
         ${viewCards()}
       </div>
     </section>
   `;
+
+  scheduleViewPreviewRender();
 
   home.querySelectorAll('[data-view]').forEach(button => {
     button.addEventListener('click', () => {
@@ -248,9 +323,11 @@ function renderToolbar(title, subtitle, backLabel, onBack) {
     <div class="polar-view-label">
       ${escapeHtml(subtitle)}
     </div>
+
     <div class="polar-view-title">
       ${escapeHtml(title)}
     </div>
+
     <div class="explore-toolbar">
       <div
         class="explore-view-switch"
@@ -270,6 +347,7 @@ function renderToolbar(title, subtitle, backLabel, onBack) {
 
       <label class="explore-mobile-view-wrap">
         <span class="explore-mobile-view-label">View</span>
+
         <select
           class="explore-mobile-view-select"
           data-mobile-view
@@ -368,21 +446,26 @@ function createPropertyCard(property, viewKey) {
         <div class="polar-card-title">
           ${escapeHtml(property.label)}
         </div>
+
         <div class="polar-card-category">
           ${escapeHtml(CATEGORY_REGISTRY[property.category].label)}
         </div>
       </div>
+
       <button class="polar-exhaustive-btn" type="button">
         + More
       </button>
     </div>
+
     <div class="polar-canvas-wrap ${view.canvasClass}">
       <canvas
         class="polar-canvas"
         aria-label="${escapeHtml(property.label)} in ${escapeHtml(view.label)} view"
       ></canvas>
+
       <div class="polar-loading">Rendering...</div>
     </div>
+
     <div class="polar-card-footer"></div>
   `;
 
@@ -482,5 +565,9 @@ function updateFooter(footer, memberCount, scanned) {
     `<span class="polar-count">${scanned.toLocaleString()}</span> integers · ` +
     `<span class="polar-count">${density}%</span> density`;
 }
+
+window.addEventListener('resize', scheduleViewPreviewRender, {
+  passive: true
+});
 
 renderHome();
